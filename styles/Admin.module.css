@@ -1,0 +1,23 @@
+.writeButton {
+  color: Blue;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.details {
+  padding-left: 25px;
+}
+
+.details > form > input {
+  margin-left: 10px;
+}
+
+.details,
+.show,
+.hide:target {
+  display: none;
+}
+.hide:target + .show,
+.hide:target ~ .details {
+  display: block;
+}

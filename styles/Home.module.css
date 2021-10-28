@@ -1,0 +1,28 @@
+.home {
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo > svg {
+  height: 200px;
+}
+
+.logo > svg > * > path {
+  stroke-dasharray: 3000;
+  stroke-dashoffset: 0;
+  animation: dash 5s linear normal 1 forwards;
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 3000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

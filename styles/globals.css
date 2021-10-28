@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css?family=Gochi+Hand");
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#paper {
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: white;
+  height: 100%;
+  min-height: calc(100vh - 80px);
+  width: 100vw;
+}
+
+#paper::before {
+  content: "";
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 40px;
+  background-color: rgba(255, 0, 0, 0.6);
+}
+
+#pattern {
+  min-height: calc(100vh - 80px);
+  height: 100%;
+  background-image: repeating-linear-gradient(white 0px, white 24px, teal 25px);
+}
+
+#content {
+  padding-top: 6px;
+  padding-left: 56px;
+  padding-right: 16px;
+  line-height: 25px;
+  font-family: "Gochi Hand", serif;
+  font-size: 24px;
+  letter-spacing: 1px;
+  word-spacing: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: blue;
+}
+
+.header > a {
+  float: left;
+  padding-right: 50px;
+}
+
+.header > div {
+  float: right;
+  cursor: pointer;
+  padding-right: 50px;
+  color: Blue;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+
+.footer > a {
+  padding-right: 20px;
+}
