@@ -398,7 +398,7 @@ export default function Edit(props: {
           </form>
           <br />
           <div onClick={toggleIsPaused}>
-            {props.projectScriptInfo.paused ? "paused" : "unpaused"}
+            {props.projectScriptInfo.paused ? "unpause" : "pause"}
           </div>
         </div>
       );
