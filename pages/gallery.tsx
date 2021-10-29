@@ -2,7 +2,7 @@ import Container from "@/components/Container";
 import { projectDetails, projectTokenInfo } from "@/lib/coreContract";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { imageBaseUrl, visibleProjectIds } from "../config";
+import { imageBaseUrl } from "../config";
 import styles from "../styles/Gallery.module.css";
 
 interface GalleryProps {
@@ -63,7 +63,7 @@ export const getServerSideProps: GetServerSideProps<GalleryProps> = async ({
   );
 
   let projects = [];
-  for (let projectId of visibleProjectIds) {
+  for (let projectId of process.env.VISIBLE_PROJECT_IDS!.split(",")) {
     projects.push({
       projectId: projectId,
       projectDetails: await projectDetails(projectId.toString()),

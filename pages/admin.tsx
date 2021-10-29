@@ -6,10 +6,28 @@ export default function Admin() {
     <Container>
       <div>
         <a id="hide1" href="#hide1" className={styles.hide}>
-          addMintWhitelisted
+          addProject
         </a>
         <a id="show1" href="#show1" className={styles.show}>
-          addMintWhitelisted
+          addProject
+        </a>
+        <div className={styles.details}>
+          <br />
+          <form>
+            <label htmlFor="_address">_address:</label>
+            <input type="text" id="_address" name="_address" />
+          </form>
+          <br />
+          <div className={styles.writeButton}>Write</div>
+        </div>
+        <br />
+      </div>
+      <div>
+        <a id="hide1" href="#hide1" className={styles.hide}>
+          toggleProjectIsActive
+        </a>
+        <a id="show1" href="#show1" className={styles.show}>
+          toggleProjectIsActive
         </a>
         <div className={styles.details}>
           <br />

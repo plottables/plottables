@@ -5,8 +5,9 @@ import { ProjectDetails, ProjectTokenInfo } from "@/lib/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { imageBaseUrl, projectGalleryPerPage } from "../../config";
+import { imageBaseUrl } from "../../config";
 import styles from "../../styles/Project.module.css";
+import { purchase } from "../../utils/interact";
 
 interface ProjectProps {
   projectId: string;
@@ -25,7 +26,7 @@ export default function Project(project: ProjectProps) {
       let i = offset;
       i <
       Math.min(
-        offset + projectGalleryPerPage,
+        offset + Number(process.env.NEXT_PUBLIC_PROJECT_GALLERY_PER_PAGE!),
         Number(project.projectTokenInfo.invocations)
       );
       i++
@@ -36,7 +37,20 @@ export default function Project(project: ProjectProps) {
   }, [offset, project.projectTokenInfo.invocations]);
 
   const handlePageClick = (data: { selected: number }) => {
-    setOffset(Math.ceil(data.selected * projectGalleryPerPage));
+    setOffset(
+      Math.ceil(
+        data.selected *
+          Number(process.env.NEXT_PUBLIC_PROJECT_GALLERY_PER_PAGE!)
+      )
+    );
+  };
+
+  const handlePurchaseClick = async () => {
+    await purchase(
+      walletAddress,
+      project.projectId,
+      project.projectTokenInfo.pricePerTokenInWei
+    );
   };
 
   return (
@@ -63,7 +77,7 @@ export default function Project(project: ProjectProps) {
       <br />
       <br />
       {
-        <div className={styles.purchaseButton}>
+        <div className={styles.purchaseButton} onClick={handlePurchaseClick}>
           {walletAddress.length === 0
             ? "Connect Wallet to Purchase"
             : project.projectTokenInfo.active
@@ -85,7 +99,8 @@ export default function Project(project: ProjectProps) {
           nextLabel={"→"}
           breakLabel={"..."}
           pageCount={
-            Number(project.projectTokenInfo.invocations) / projectGalleryPerPage
+            Number(project.projectTokenInfo.invocations) /
+            Number(process.env.NEXT_PUBLIC_PROJECT_GALLERY_PER_PAGE!)
           }
           marginPagesDisplayed={2}
           pageRangeDisplayed={3}

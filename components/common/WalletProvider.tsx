@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { getCurrentWalletConnected } from "../../utils/interact";
 
 declare const window: any;
-const WalletContext = createContext("none");
+const WalletContext = createContext("");
 
 export const WalletProvider: React.FC = ({ children }) => {
   const [walletAddress, setWalletAddress] = useState("");
