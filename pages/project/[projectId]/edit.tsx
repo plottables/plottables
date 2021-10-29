@@ -293,7 +293,9 @@ export default function Edit(props: {
               type="text"
               id="updateProjectScriptJSON"
               name="input1"
-              defaultValue={JSON.parse(props.projectScriptInfo.scriptJSON).scriptType}
+              defaultValue={
+                JSON.parse(props.projectScriptInfo.scriptJSON).scriptType
+              }
             />
             <label htmlFor="updateProjectScriptJSON">
               aspect ratio (width / height):
@@ -302,7 +304,9 @@ export default function Edit(props: {
               type="text"
               id="updateProjectScriptJSON"
               name="input2"
-              defaultValue={JSON.parse(props.projectScriptInfo.scriptJSON).aspectRatio}
+              defaultValue={
+                JSON.parse(props.projectScriptInfo.scriptJSON).aspectRatio
+              }
             />
             <button type="submit">submit</button>
           </form>
