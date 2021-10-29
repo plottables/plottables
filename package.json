@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "typechain --target=web3-v1 'config/*.json' --always-generate-overloads",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
