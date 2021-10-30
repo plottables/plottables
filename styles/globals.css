@@ -1,72 +1,88 @@
 @import url("https://fonts.googleapis.com/css?family=Gochi+Hand");
 
+@font-face {
+    font-family: 'FuturaHandwritten Medium';
+    font-style: normal;
+    font-weight: normal;
+    src: local('FuturaHandwritten Medium'), url('/FuturaHandwritten.woff') format('woff');
+}
+
+html, html * {
+    font-family: 'FuturaHandwritten Medium';
+}
+
 body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+
+    font-size: 24px;
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, lightblue 1px, transparent 1px), linear-gradient(to bottom, lightblue 1px, transparent 1px);
+
+    background-position: center top;
+    /*letter-spacing: 1px;*/
+    /*word-spacing: 5px;*/
 }
 
-#paper {
-  position: relative;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: white;
-  height: 100%;
-  min-height: calc(100vh - 80px);
-  width: 100vw;
+.container {
+    width: 838px;
+    margin: 41px auto;
+    background: #fff;
+
+    box-shadow: 0px 5px 20px rgba(68, 130, 193, 0.2);
+    /*border: solid 5px lightblue;*/
+    /*border-top-left-radius: 255px 15px;*/
+    /*border-top-right-radius: 15px 225px;*/
+    /*border-bottom-right-radius: 225px 15px;*/
+    /*border-bottom-left-radius: 15px 255px;*/
+
+    padding: 40px;
 }
 
-#paper::before {
-  content: "";
-  width: 2px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 40px;
-  background-color: rgba(255, 0, 0, 0.6);
+button {
+    background: transparent;
+    padding: 0.6rem 1.2rem;
+    font-size: 24px;
+    font-weight: bold;
+
+    border-top-left-radius: 255px 15px;
+    border-top-right-radius: 15px 225px;
+    border-bottom-right-radius: 225px 15px;
+    border-bottom-left-radius: 15px 255px;
+
+    border: solid 6px #41403E;
 }
 
-#pattern {
-  min-height: calc(100vh - 80px);
-  height: 100%;
-  background-image: repeating-linear-gradient(white 0px, white 24px, teal 25px);
-}
-
-#content {
-  padding-top: 6px;
-  padding-left: 56px;
-  padding-right: 16px;
-  line-height: 25px;
-  font-family: "Gochi Hand", serif;
-  font-size: 24px;
-  letter-spacing: 1px;
-  word-spacing: 5px;
+button:hover {
+    box-shadow: 2px 8px 4px -6px hsla(0, 0%, 0%, .3);
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 a:visited {
-  color: blue;
+    color: blue;
 }
 
 .header > a {
-  float: left;
-  padding-right: 50px;
+    float: left;
+    padding-right: 50px;
 }
 
 .header > div {
-  float: right;
-  cursor: pointer;
-  padding-right: 50px;
-  color: Blue;
+    float: right;
+    cursor: pointer;
+    padding-right: 50px;
+    color: Blue;
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
+    position: fixed;
+    bottom: 0;
 }
 
 .footer > a {
-  padding-right: 20px;
+    padding-right: 20px;
 }
