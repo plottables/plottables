@@ -1,45 +1,99 @@
 import Container from "@/components/Container";
-import { tokensOfOwner } from "@/lib/coreContract";
+import { imageBaseUrl } from "@/config/index";
+import {
+  projectDetails,
+  tokenIdToProjectId,
+  tokensOfOwner,
+} from "@/lib/coreContract";
+import Link from "next/link";
+import { Key } from "react";
+import styles from "../../styles/User.module.css";
 
 export interface UserProps {
-  tokensOfOwner: string[] | null;
+  address: string | null;
+  organizedTokens: any[];
 }
 
-export default function User({ tokensOfOwner }: UserProps) {
+export default function User({ address, organizedTokens }: UserProps) {
+  function renderProjects() {
+    for (const k in organizedTokens) {
+    }
+  }
+
   return (
     <Container>
-      <h3>User</h3>
-      <hr />
-      This is the user page
+      {/* eslint-disable-next-line react/no-unescaped-entities */}
+      User {address}'s Collection
       <br />
-      {tokensOfOwner?.map((t) => (
-        <pre key={t}>
-          {t}
-          <br />
-        </pre>
-      ))}
+      <br />
+      {Object.keys(organizedTokens).map((k) => {
+        // @ts-ignore
+        const { tokens, projectDetails } = organizedTokens[k];
+        return (
+          <div key={k}>
+            <br />
+            <Link href={`/project/${k}`}>
+              <a>
+                {projectDetails.projectName} by {projectDetails.artist}
+              </a>
+            </Link>
+            <br />
+            <br />
+            <div className={styles.tokenContainer}>
+              {tokens.map((t: Key | null | undefined) => {
+                return (
+                  <div key={t} className={styles.token}>
+                    <Link href={"/token/" + t}>
+                      <a>#{parseInt(t as string) - 1000000 * parseInt(k)}</a>
+                    </Link>
+                    <img src={imageBaseUrl + t + ".png"} alt={"an image"} />
+                  </div>
+                );
+              })}
+            </div>
+            <br />
+            <br />
+          </div>
+        );
+      })}
     </Container>
   );
 }
 
-export const getServerSideProps: (
-  context: any
-) => Promise<
-  { props: { tokensOfOwner: null } } | { props: { tokensOfOwner: string } }
-> = async (context) => {
-  const address = context.params?.address;
+export const getServerSideProps: (context: any) => Promise<{ props: any }> =
+  async (context) => {
+    const address = context.params?.address;
 
-  if (!address) {
+    if (!address) {
+      return {
+        props: {
+          address: null,
+          organizedTokens: null,
+        },
+      };
+    }
+
+    const tokens = await tokensOfOwner(address);
+
+    let organizedTokens = {};
+    for (const token of tokens) {
+      const projectId: string = await tokenIdToProjectId(token);
+      if (!organizedTokens.hasOwnProperty(projectId)) {
+        Object.assign(organizedTokens, {
+          [projectId]: {
+            tokens: [],
+            projectDetails: await projectDetails(projectId),
+          },
+        });
+      }
+      // @ts-ignore
+      organizedTokens[projectId].tokens.push(token);
+    }
+
     return {
       props: {
-        tokensOfOwner: null,
+        address: address,
+        organizedTokens: organizedTokens,
       },
     };
-  }
-
-  return {
-    props: {
-      tokensOfOwner: await tokensOfOwner(address),
-    },
   };
-};
