@@ -15,20 +15,12 @@ async function getBrowserInstance() {
     return puppeteer.launch({
       args: chromium.args,
       headless: true,
-      defaultViewport: {
-        width: 1280,
-        height: 720
-      },
       ignoreHTTPSErrors: true
     })
   }
 
   return chromium.puppeteer.launch({
     args: chromium.args,
-    defaultViewport: {
-      width: 1280,
-      height: 720
-    },
     executablePath,
     headless: chromium.headless,
     ignoreHTTPSErrors: true
@@ -37,28 +29,25 @@ async function getBrowserInstance() {
 
 function generateHtml(tokenId, hash, script) {
   return `
-        <html>
-            <head>
-                <title>${tokenId}</title>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-                <script>
-                    let plot = true;
-                    let tokenData = {"hash":"${hash}"};
-                </script>
-                <script>
-                    ${script}
-                </script>
-                <style>
-                  * {
-                    margin: 0;
-                    padding: 0;
-                  }
-                </style>
-            </head>
-            <body>
-                <div id='app'></div>
-            </body>
-        </html>
+  <html>
+    <head>
+      <title>${tokenId}</title>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+      <script>
+        let plot = true;
+        let tokenData = {"hash":"${hash}"};
+      </script>
+      <script>
+        ${script}
+      </script>
+      <style>
+        * { margin: 0; padding: 0; }
+      </style>
+    </head>
+    <body>
+      <div id='app'></div>
+    </body>
+  </html>
     `
 }
 
@@ -95,9 +84,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const page = await browser.newPage();
     const html = generateHtml(tokenId, hash, script)
     await page.setContent(html);
-
-    // save to file example:
-    // await page.screenshot({ path: 'example.png' });
 
     if(type === 'png') {
       const element = await page.$('svg');
