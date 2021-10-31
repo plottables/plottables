@@ -121,7 +121,7 @@ export default function Project(project: ProjectProps) {
                 >
                   <a>#{t}</a>
                 </Link>
-                <img src={imageBaseUrl + t + ".png"} alt={"an image"} />
+                <img src={imageBaseUrl + (parseInt(t) + 1000000 * parseInt(project.projectId)) + ".png"} alt={"an image"} />
               </div>
             );
           })}
