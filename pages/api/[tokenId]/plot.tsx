@@ -84,7 +84,7 @@ export default async function handler(
                   });
                   observer.observe(document.body, {childList: true, attributes: false, subtree: false});
                 </script>
-                <script type="text/javascript" src=${process.env.VERCEL_URL}/plot.js></script>
+                <script type="text/javascript" src=https://${process.env.VERCEL_URL}plot.js></script>
             </body>
         </html>
     `);
