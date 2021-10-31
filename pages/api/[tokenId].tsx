@@ -50,6 +50,7 @@ export default async function handler(
                     body {
                         margin: 0;
                         padding: 0;
+                        background: Grey;
                     }
                     canvas {
                         padding: 0;

@@ -5,6 +5,7 @@ import {
   tokenIdToProjectId,
 } from "@/lib/coreContract";
 import { ProjectDetails } from "@/lib/types";
+import styles from "../../styles/Token.module.css";
 
 interface TokenProps {
   tokenId: string;
@@ -36,7 +37,7 @@ export default function Token({
       Owned by {ownerOf}
         <br/>
         <br/>
-        <iframe sandbox="allow-scripts" src={"http://localhost:3000/api/" + tokenId} title={tokenId}/>
+        <iframe className={styles.liveview} frameBorder="0" sandbox="allow-scripts" src={"http://localhost:3000/api/" + tokenId} title={tokenId}/>
     </Container>
   );
 }
