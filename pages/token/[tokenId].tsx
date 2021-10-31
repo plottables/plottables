@@ -6,6 +6,7 @@ import {
 } from "@/lib/coreContract";
 import { ProjectDetails } from "@/lib/types";
 import styles from "../../styles/Token.module.css";
+import Link from "next/link";
 
 interface TokenProps {
   tokenId: string;
@@ -37,7 +38,11 @@ export default function Token({
       Owned by {ownerOf}
         <br/>
         <br/>
-        <iframe className={styles.liveview} frameBorder="0" sandbox="allow-scripts" src={"http://localhost:3000/api/" + tokenId} title={tokenId}/>
+        <div className={styles.viewOptions}>
+            <a href={`https://${process.env.VERCEL_URL}/api/${tokenId}`}>live</a>
+            <a href={`https://${process.env.VERCEL_URL}/api/${tokenId}/plot`}>plot</a>
+        </div>
+        <iframe className={styles.liveview} frameBorder="0" sandbox="allow-scripts" src={`http://${process.env.VERCEL_URL}/api/${tokenId}`} title={tokenId}/>
     </Container>
   );
 }
