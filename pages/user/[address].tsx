@@ -15,11 +15,6 @@ export interface UserProps {
 }
 
 export default function User({ address, organizedTokens }: UserProps) {
-  function renderProjects() {
-    for (const k in organizedTokens) {
-    }
-  }
-
   return (
     <Container>
       {/* eslint-disable-next-line react/no-unescaped-entities */}
