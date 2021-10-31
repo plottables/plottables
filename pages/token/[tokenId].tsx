@@ -6,7 +6,6 @@ import {
 } from "@/lib/coreContract";
 import { ProjectDetails } from "@/lib/types";
 import styles from "../../styles/Token.module.css";
-import Link from "next/link";
 
 interface TokenProps {
   tokenId: string;
@@ -36,13 +35,19 @@ export default function Token({
       <br />
       <br />
       Owned by {ownerOf}
-        <br/>
-        <br/>
-        <div className={styles.viewOptions}>
-            <a href={`https://${process.env.VERCEL_URL}/api/${tokenId}`}>live</a>
-            <a href={`https://${process.env.VERCEL_URL}/api/${tokenId}/plot`}>plot</a>
-        </div>
-        <iframe className={styles.liveview} frameBorder="0" sandbox="allow-scripts" src={`http://${process.env.VERCEL_URL}/api/${tokenId}`} title={tokenId}/>
+      <br />
+      <br />
+      <div className={styles.viewOptions}>
+        <a href={`https://ropsten.plottables.io/api/${tokenId}`}>live</a>
+        <a href={`https://ropsten.plottables.io/api/${tokenId}/plot`}>plot</a>
+      </div>
+      <iframe
+        className={styles.liveview}
+        frameBorder="0"
+        sandbox="allow-scripts"
+        src={`https://ropsten.plottables.io/api/${tokenId}`}
+        title={tokenId}
+      />
     </Container>
   );
 }
