@@ -38,8 +38,8 @@ export default function Token({
       <br />
       <br />
       <div className={styles.viewOptions}>
-        <a href={`https://ropsten.plottables.io/api/${tokenId}`}>live</a>
-        <a href={`https://ropsten.plottables.io/api/${tokenId}/plot`}>plot</a>
+        <a href={`https://ropsten.plottables.io/api/${tokenId}`} target="_blank" rel="noreferrer">live</a>
+        <a href={`https://ropsten.plottables.io/api/${tokenId}/plot`} target="_blank" rel="noreferrer">plot</a>
       </div>
       <iframe
         className={styles.liveview}
