@@ -34,6 +34,9 @@ export default function Token({
       <br />
       <br />
       Owned by {ownerOf}
+        <br/>
+        <br/>
+        <iframe sandbox="allow-scripts" src={"http://localhost:3000/api/" + tokenId} title={tokenId}/>
     </Container>
   );
 }

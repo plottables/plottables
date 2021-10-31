@@ -113,8 +113,8 @@ export default function Project(project: ProjectProps) {
           {tokens.map((t) => {
             return (
               <div key={t} className={styles.token}>
-                <Link href={"/token/" + t}>
-                  <a>#{parseInt(t) - 1000000 * parseInt(project.projectId)}</a>
+                <Link href={"/token/" + (parseInt(t) + 1000000 * parseInt(project.projectId))}>
+                  <a>#{t}</a>
                 </Link>
                 <img src={imageBaseUrl + t + ".png"} alt={"an image"} />
               </div>
