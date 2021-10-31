@@ -602,17 +602,22 @@
   },
   function (e, t, n) {
     e.exports = function () {
-      return new Worker("https://plottables.vercel.app/f394c669e1d38be8cfe1.worker.js");
+      return new Worker(
+        "https://ropsten.plottables.io/f394c669e1d38be8cfe1.worker.js"
+      );
     };
   },
   function (e, t, n) {
-    e.exports = "https://plottables.vercel.app/f8d3d043e0cf0b597bbc071f3979f6dc.svg";
+    e.exports =
+      "https://ropsten.plottables.io/f8d3d043e0cf0b597bbc071f3979f6dc.svg";
   },
   function (e, t, n) {
-    e.exports = "https://plottables.vercel.app/b5d9aa44dd5b186d461d6138d1efa22a.svg";
+    e.exports =
+      "https://ropsten.plottables.io/b5d9aa44dd5b186d461d6138d1efa22a.svg";
   },
   function (e, t, n) {
-    e.exports = "https://plottables.vercel.app/a429882141b5f9e82388c4ca12190898.svg";
+    e.exports =
+      "https://ropsten.plottables.io/a429882141b5f9e82388c4ca12190898.svg";
   },
   function (e, t, n) {
     "use strict";

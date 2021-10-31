@@ -1,17 +1,17 @@
 .liveview {
-    width: 500px;
-    height: 500px;
-    margin: auto;
-    display: block;
-    box-shadow: 5px 5px 10px grey;
+  width: 500px;
+  height: 500px;
+  margin: auto;
+  display: block;
+  box-shadow: 5px 5px 10px grey;
 }
 
 .viewOptions {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .viewOptions > a {
-    margin-left: 20px;
-    margin-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
