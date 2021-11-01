@@ -63,10 +63,35 @@ a:visited {
 }
 
 .footer {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 70px);
+  font-size: 18px;
 }
 
-.footer > a {
+.footer > .left {
+  text-align: left;
+}
+
+.footer > .center {
+  text-align: center;
+}
+
+.footer > .right {
+  text-align: right;
+}
+
+.left > a {
   padding-right: 20px;
+}
+
+.center > a {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.right > a {
+  padding-left: 20px;
 }
