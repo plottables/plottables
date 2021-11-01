@@ -40,7 +40,9 @@ export default function Gallery({ projects }: GalleryProps) {
                 <br />
               </div>
               <div className={styles.projectPreview}>
-                #{randomToken}
+                <Link href={"/token/" + randomToken}>
+                  <a>#{randomToken - 1000000 * p.projectId}</a>
+                </Link>
                 <img
                   src={imageBaseUrl + randomToken + ".png"}
                   alt={"a random image"}
