@@ -66,7 +66,6 @@ export default function Project(project: ProjectProps) {
     }
   };
 
-  console.log(project.projectTokenInfo.active);
   return (
     <Container>
       <br />
