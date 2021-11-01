@@ -72,14 +72,17 @@ a:visited {
 }
 
 .footer > .left {
+  flex: 1;
   text-align: left;
 }
 
 .footer > .center {
+  flex: 1;
   text-align: center;
 }
 
 .footer > .right {
+  flex: 1;
   text-align: right;
 }
 
