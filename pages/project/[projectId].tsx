@@ -57,7 +57,11 @@ export default function Project(project: ProjectProps) {
   const handlePurchaseClick = async () => {
     if (walletAddress.length === 0) {
       await connectWallet();
-    } else if (!project.projectScriptInfo.paused) {
+    } else if (
+      !project.projectScriptInfo.paused ||
+      walletAddress.toLowerCase() ===
+        project.projectTokenInfo.artistAddress.toLowerCase()
+    ) {
       await purchase(
         walletAddress,
         project.projectId,
