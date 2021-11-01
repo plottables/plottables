@@ -2,8 +2,8 @@ import Container from "@/components/Container";
 import { projectDetails, projectTokenInfo } from "@/lib/coreContract";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { imageBaseUrl } from "../config";
-import styles from "../styles/Gallery.module.css";
+import { imageBaseUrl } from "@/config/index";
+import styles from "@/styles/Gallery.module.css";
 
 interface GalleryProps {
   projects: any[];

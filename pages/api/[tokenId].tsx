@@ -2,7 +2,7 @@ import coreAbi from "@/config/coreAbi.json";
 import { coreContractAddress } from "@/config/index";
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { AbiItem } from "web3-utils";
-import { CoreAbi } from "../../types/web3-v1-contracts/coreAbi";
+import { CoreAbi } from "@/types/web3-v1-contracts/coreAbi";
 
 const web3 = createAlchemyWeb3(
   `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`

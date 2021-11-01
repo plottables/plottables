@@ -1,5 +1,5 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
-import { getSVG } from "../../api/generator/[tokenId]/svg";
+import { getSVG } from "@/pages/api/generator/[tokenId]/svg";
 
 export default function Plot(props: { svg: any }) {
   const walletAddress = useWalletContext();

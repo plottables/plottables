@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import styles from "../../../styles/Edit.module.css";
+import styles from "@/styles/Edit.module.css";
 import {
   addProjectScript,
   removeProjectLastScript,
@@ -26,7 +26,7 @@ import {
   updateProjectScript,
   updateProjectScriptJSON,
   updateProjectWebsite,
-} from "../../../utils/interact";
+} from "@/utils/interact";
 
 export default function Edit(props: {
   projectDetails: {

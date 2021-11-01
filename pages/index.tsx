@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
-import Logo from "../public/logo.svg";
-import styles from "../styles/Home.module.css";
+import Logo from "@/public/logo.svg";
+import styles from "@/styles/Home.module.css";
 
 export default function Home() {
   return (

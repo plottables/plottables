@@ -13,9 +13,9 @@ import {
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { imageBaseUrl } from "../../config";
-import styles from "../../styles/Project.module.css";
-import { connectWallet, purchase } from "../../utils/interact";
+import { imageBaseUrl } from "@/config/index";
+import styles from "@/styles/Project.module.css";
+import { connectWallet, purchase } from "@/utils/interact";
 
 interface ProjectProps {
   projectId: string;

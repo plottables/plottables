@@ -5,7 +5,7 @@ import {
   tokenIdToProjectId,
 } from "@/lib/coreContract";
 import { ProjectDetails } from "@/lib/types";
-import styles from "../../styles/Token.module.css";
+import styles from "@/styles/Token.module.css";
 
 interface TokenProps {
   tokenId: string;
