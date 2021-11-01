@@ -58,7 +58,6 @@ a:visited {
 .header > div {
   float: right;
   cursor: pointer;
-  padding-right: 50px;
   color: Blue;
 }
 
