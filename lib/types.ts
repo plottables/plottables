@@ -22,3 +22,11 @@ export interface ProjectTokenInfo {
   currency: string;
   currencyAddress: string;
 }
+
+export interface ProjectScriptInfo {
+  scriptJSON: string;
+  scriptCount: number;
+  ipfsHash: string;
+  locked: boolean;
+  paused: boolean;
+}

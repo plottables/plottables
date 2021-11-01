@@ -1,18 +1,27 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import Container from "@/components/Container";
-import { projectDetails, projectTokenInfo } from "@/lib/coreContract";
-import { ProjectDetails, ProjectTokenInfo } from "@/lib/types";
+import {
+  projectDetails,
+  projectScriptInfo,
+  projectTokenInfo,
+} from "@/lib/coreContract";
+import {
+  ProjectDetails,
+  ProjectScriptInfo,
+  ProjectTokenInfo,
+} from "@/lib/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { imageBaseUrl } from "../../config";
 import styles from "../../styles/Project.module.css";
-import { purchase } from "../../utils/interact";
+import { connectWallet, purchase } from "../../utils/interact";
 
 interface ProjectProps {
   projectId: string;
   projectDetails: ProjectDetails;
   projectTokenInfo: ProjectTokenInfo;
+  projectScriptInfo: ProjectScriptInfo;
 }
 
 export default function Project(project: ProjectProps) {
@@ -46,13 +55,18 @@ export default function Project(project: ProjectProps) {
   };
 
   const handlePurchaseClick = async () => {
-    await purchase(
-      walletAddress,
-      project.projectId,
-      project.projectTokenInfo.pricePerTokenInWei
-    );
+    if (walletAddress.length === 0) {
+      await connectWallet();
+    } else if (!project.projectScriptInfo.paused) {
+      await purchase(
+        walletAddress,
+        project.projectId,
+        project.projectTokenInfo.pricePerTokenInWei
+      );
+    }
   };
 
+  console.log(project.projectTokenInfo.active);
   return (
     <Container>
       <br />
@@ -80,7 +94,7 @@ export default function Project(project: ProjectProps) {
         <div className={styles.purchaseButton} onClick={handlePurchaseClick}>
           {walletAddress.length === 0
             ? "Connect Wallet to Purchase"
-            : project.projectTokenInfo.active
+            : !project.projectScriptInfo.paused
             ? "Purchase"
             : "Purchases Paused"}
         </div>
@@ -121,7 +135,14 @@ export default function Project(project: ProjectProps) {
                 >
                   <a>#{t}</a>
                 </Link>
-                <img src={imageBaseUrl + (parseInt(t) + 1000000 * parseInt(project.projectId)) + ".png"} alt={"an image"} />
+                <img
+                  src={
+                    imageBaseUrl +
+                    (parseInt(t) + 1000000 * parseInt(project.projectId)) +
+                    ".png"
+                  }
+                  alt={"an image"}
+                />
               </div>
             );
           })}
@@ -138,6 +159,7 @@ export const getServerSideProps: ({ params }: { params: any }) => Promise<
         projectTokenInfo: string;
         projectId: string;
         projectDetails: string;
+        projectScriptInfo: string;
       };
     }
 > = async ({ params }) => {
@@ -154,6 +176,7 @@ export const getServerSideProps: ({ params }: { params: any }) => Promise<
       projectId: projectId,
       projectDetails: await projectDetails(projectId),
       projectTokenInfo: await projectTokenInfo(projectId),
+      projectScriptInfo: await projectScriptInfo(projectId),
     },
   };
 };
