@@ -7,9 +7,6 @@ import {
   projectTokenInfo,
   projectURIInfo,
 } from "@/lib/coreContract";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import styles from "@/styles/Edit.module.css";
 import {
   addProjectScript,
@@ -27,6 +24,9 @@ import {
   updateProjectScriptJSON,
   updateProjectWebsite,
 } from "@/utils/interact";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Edit(props: {
   projectDetails: {

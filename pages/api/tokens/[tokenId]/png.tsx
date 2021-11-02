@@ -1,5 +1,5 @@
+import { getPNG } from "@/lib/render";
 import { NextApiResponse } from "next";
-import {getPNG} from "@/lib/render";
 
 export default async function handler(
   req: { query: { tokenId: string } },

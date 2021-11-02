@@ -5,9 +5,9 @@ import {
   tokenIdToProjectId,
   tokensOfOwner,
 } from "@/lib/coreContract";
+import styles from "@/styles/User.module.css";
 import Link from "next/link";
 import { Key } from "react";
-import styles from "@/styles/User.module.css";
 
 export interface UserProps {
   address: string | null;

@@ -1,5 +1,6 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import Container from "@/components/Container";
+import { imageBaseUrl } from "@/config/index";
 import {
   projectDetails,
   projectScriptInfo,
@@ -10,12 +11,11 @@ import {
   ProjectScriptInfo,
   ProjectTokenInfo,
 } from "@/lib/types";
+import styles from "@/styles/Project.module.css";
+import { connectWallet, purchase } from "@/utils/interact";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { imageBaseUrl } from "@/config/index";
-import styles from "@/styles/Project.module.css";
-import { connectWallet, purchase } from "@/utils/interact";
 
 interface ProjectProps {
   projectId: string;

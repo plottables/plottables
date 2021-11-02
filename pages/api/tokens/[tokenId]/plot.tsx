@@ -12,7 +12,7 @@ export default async function handler(
     .tokenIdToProjectId(tokenId)
     .call();
 
-  let script = await getScript(projectId)
+  let script = await getScript(projectId);
 
   res.send(`
         <html>

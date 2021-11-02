@@ -1,6 +1,6 @@
 import coreContract from "@/lib/coreContract";
-import chromium from "chrome-aws-lambda";
 import getScript from "@/lib/getScript";
+import chromium from "chrome-aws-lambda";
 
 async function getBrowserInstance() {
   const executablePath = await chromium.executablePath;
@@ -51,7 +51,7 @@ export async function getSVG(tokenId: string) {
   const projectId = await coreContract.methods
     .tokenIdToProjectId(tokenId)
     .call();
-  let script = await getScript(projectId)
+  let script = await getScript(projectId);
 
   try {
     const browser = await getBrowserInstance();
@@ -78,7 +78,7 @@ export async function getPNG(tokenId: string) {
   const projectId = await coreContract.methods
     .tokenIdToProjectId(tokenId)
     .call();
-  let script = await getScript(projectId)
+  let script = await getScript(projectId);
 
   try {
     const browser = await getBrowserInstance();

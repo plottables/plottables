@@ -13,5 +13,5 @@ export default async function getScript(projectId: string): Promise<string> {
     script += s;
   }
 
-  return script
+  return script;
 }

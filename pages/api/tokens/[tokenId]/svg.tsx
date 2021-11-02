@@ -1,5 +1,5 @@
+import { getSVG } from "@/lib/render";
 import { NextApiResponse } from "next";
-import {getSVG} from "@/lib/render";
 
 export default async function handler(
   req: { query: { tokenId: string } },

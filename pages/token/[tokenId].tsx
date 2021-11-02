@@ -45,18 +45,11 @@ export default function Token({
         >
           live
         </a>
-        <a
-          href={`/token/${tokenId}/plot`}
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href={`/token/${tokenId}/plot`} target="_blank" rel="noreferrer">
           plot
         </a>
       </div>
-      <img
-        className={styles.liveview}
-        src={`/api/tokens/${tokenId}/png`}
-        />
+      <img className={styles.liveview} src={`/api/tokens/${tokenId}/png`} />
     </Container>
   );
 }

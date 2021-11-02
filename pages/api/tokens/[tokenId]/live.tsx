@@ -11,7 +11,7 @@ export default async function handler(
   const projectId = await coreContract.methods
     .tokenIdToProjectId(tokenId)
     .call();
-  let script = await getScript(projectId)
+  let script = await getScript(projectId);
 
   res.send(`
         <html>
