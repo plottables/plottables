@@ -1,10 +1,6 @@
-import coreAbi from "@/config/coreAbi.json";
-import { coreContractAddress } from "@/config/index";
-import { CoreAbi } from "@/types/web3-v1-contracts/coreAbi";
-import { createAlchemyWeb3 } from "@alch/alchemy-web3";
+import coreContract from "@/lib/coreContract";
 import chromium from "chrome-aws-lambda";
-import { NextApiResponse } from "next";
-import { AbiItem } from "web3-utils";
+import getScript from "@/lib/getScript";
 
 async function getBrowserInstance() {
   const executablePath = await chromium.executablePath;
@@ -50,22 +46,40 @@ function generateHtml(tokenId: any, hash: any, script: any) {
   </html>
     `;
 }
+export async function getSVG(tokenId: string) {
+  const hash = await coreContract.methods.tokenIdToHash(tokenId).call();
+  const projectId = await coreContract.methods
+    .tokenIdToProjectId(tokenId)
+    .call();
+  let script = await getScript(projectId)
+
+  try {
+    const browser = await getBrowserInstance();
+    const page = await browser.newPage();
+    const html = generateHtml(tokenId, hash, script);
+    await page.setContent(html);
+
+    let data = await page.evaluate(
+      () => document.querySelector("svg")!.outerHTML
+    );
+    data = data.replace(
+      "<svg",
+      '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"'
+    );
+    return `<?xml version="1.0" encoding="UTF-8"?>\n` + data;
+  } catch (err) {
+    console.error(err);
+    return "error generating preview";
+  }
+}
 
 export async function getPNG(tokenId: string) {
   const hash = await coreContract.methods.tokenIdToHash(tokenId).call();
   const projectId = await coreContract.methods
     .tokenIdToProjectId(tokenId)
     .call();
-  const scriptInfo = await coreContract.methods
-    .projectScriptInfo(projectId)
-    .call();
-  let script = "";
-  for (let i = 0; i < Number(scriptInfo.scriptCount); i++) {
-    const s = await coreContract.methods
-      .projectScriptByIndex(projectId, i)
-      .call();
-    script += s;
-  }
+  let script = await getScript(projectId)
+
   try {
     const browser = await getBrowserInstance();
     const page = await browser.newPage();
@@ -78,24 +92,4 @@ export async function getPNG(tokenId: string) {
     console.error(err);
     return "error generating preview";
   }
-}
-
-// consolidate all of these to a shared import somewhere
-const web3 = createAlchemyWeb3(
-  `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`
-);
-const coreContract = new web3.eth.Contract(
-  coreAbi as AbiItem[],
-  coreContractAddress
-) as unknown as CoreAbi;
-
-export default async function handler(
-  req: { query: { tokenId: string } },
-  res: NextApiResponse
-) {
-  const tokenId = req.query.tokenId as string;
-  const imageBuffer = await getPNG(tokenId);
-  res.setHeader("Content-Type", "image/png");
-  res.setHeader("Content-Length", imageBuffer.length);
-  res.end(imageBuffer);
 }

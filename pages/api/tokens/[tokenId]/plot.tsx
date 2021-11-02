@@ -1,16 +1,5 @@
-import coreAbi from "@/config/coreAbi.json";
-import { coreContractAddress } from "@/config/index";
-import { createAlchemyWeb3 } from "@alch/alchemy-web3";
-import { AbiItem } from "web3-utils";
-import { CoreAbi } from "@/types/web3-v1-contracts/coreAbi";
-
-const web3 = createAlchemyWeb3(
-  `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`
-);
-const coreContract = new web3.eth.Contract(
-  coreAbi as AbiItem[],
-  coreContractAddress
-) as unknown as CoreAbi;
+import coreContract from "@/lib/coreContract";
+import getScript from "@/lib/getScript";
 
 export default async function handler(
   req: { query: { tokenId: any } },
@@ -22,17 +11,8 @@ export default async function handler(
   const projectId = await coreContract.methods
     .tokenIdToProjectId(tokenId)
     .call();
-  const scriptInfo = await coreContract.methods
-    .projectScriptInfo(projectId)
-    .call();
 
-  let script = "";
-  for (let i = 0; i < Number(scriptInfo.scriptCount); i++) {
-    const s = await coreContract.methods
-      .projectScriptByIndex(projectId, i)
-      .call();
-    script += s;
-  }
+  let script = await getScript(projectId)
 
   res.send(`
         <html>
@@ -84,7 +64,7 @@ export default async function handler(
                   });
                   observer.observe(document.body, {childList: true, attributes: false, subtree: false});
                 </script>
-                <script type="text/javascript" src="https://${process.env.VERCEL_URL}/plot.js"></script>
+                <script type="text/javascript" src="/saxi/plot.js"></script>
             </body>
         </html>
     `);

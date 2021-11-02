@@ -39,27 +39,24 @@ export default function Token({
       <br />
       <div className={styles.viewOptions}>
         <a
-          href={`https://ropsten.plottables.io/api/${tokenId}`}
+          href={`/api/tokens/${tokenId}/live`}
           target="_blank"
           rel="noreferrer"
         >
           live
         </a>
         <a
-          href={`https://ropsten.plottables.io/api/${tokenId}/plot`}
+          href={`/token/${tokenId}/plot`}
           target="_blank"
           rel="noreferrer"
         >
           plot
         </a>
       </div>
-      <iframe
+      <img
         className={styles.liveview}
-        frameBorder="0"
-        sandbox="allow-scripts"
-        src={`https://ropsten.plottables.io/api/${tokenId}`}
-        title={tokenId}
-      />
+        src={`/api/tokens/${tokenId}/png`}
+        />
     </Container>
   );
 }
