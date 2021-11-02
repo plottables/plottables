@@ -1,7 +1,7 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
+import { connectWallet } from "@/utils/interact";
 import Link from "next/link";
 import React from "react";
-import { connectWallet } from "@/utils/interact";
 
 const Header: React.FC = ({ children }) => {
   const walletAddress = useWalletContext();

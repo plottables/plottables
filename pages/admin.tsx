@@ -1,5 +1,5 @@
-import Container from "../components/Container";
 import styles from "@/styles/Admin.module.css";
+import Container from "../components/Container";
 
 export default function Admin() {
   return (

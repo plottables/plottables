@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
 import { getCurrentWalletConnected } from "@/utils/interact";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 declare const window: any;
 const WalletContext = createContext("");
