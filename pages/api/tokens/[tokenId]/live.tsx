@@ -19,7 +19,6 @@ export default async function handler(
                 <title>${tokenId}</title>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
                 <script>
-                    let plot = false;
                     let tokenData = {"hash":"${hash}"};
                 </script>
                 <script>
