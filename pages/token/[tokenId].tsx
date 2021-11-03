@@ -1,4 +1,5 @@
 import Container from "@/components/Container";
+import { imageBaseUrl } from "@/config/index";
 import {
   ownerOf,
   projectDetails,
@@ -49,7 +50,11 @@ export default function Token({
           plot
         </a>
       </div>
-      <img className={styles.liveview} src={`/api/tokens/${tokenId}/png`} />
+      <img
+        className={styles.liveview}
+        src={imageBaseUrl + tokenId + ".png"}
+        alt={"an image"}
+      />
     </Container>
   );
 }
