@@ -105,9 +105,13 @@ export default function Project(project: ProjectProps) {
       <br />
       {walletAddress.toLowerCase() ===
       project.projectTokenInfo.artistAddress.toLowerCase() ? (
-        <Link href={"/project/" + project.projectId + "/edit"}>
-          <a>Edit Project</a>
-        </Link>
+        <a
+          href={`https://artist-staging.artblocks.io/project/0xd10e3dee203579fcee90ed7d0bdd8086f7e53beb-${project.projectId}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Edit Project
+        </a>
       ) : null}
       <div>
         <br />
