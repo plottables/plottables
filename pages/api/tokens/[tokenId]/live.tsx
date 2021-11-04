@@ -28,17 +28,10 @@ export default async function handler(
                     body {
                         margin: 0;
                         padding: 0;
-                        background: Grey;
                     }
-                    canvas {
-                        padding: 0;
-                        margin: auto;
-                        display: block;
-                        position: absolute;
-                        top: 0;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
+                    svg {
+                        width: 100%;
+                        height: 100%;
                     }
                 </style>
             </head>

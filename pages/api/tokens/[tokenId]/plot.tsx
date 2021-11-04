@@ -20,7 +20,6 @@ export default async function handler(
                 <title>${tokenId}</title>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
                 <script>
-                    let plot = true;
                     let tokenData = {"hash":"${hash}"};
                 </script>
                 <script>
@@ -30,16 +29,6 @@ export default async function handler(
                     body {
                         margin: 0;
                         padding: 0;
-                    }
-                    canvas {
-                        padding: 0;
-                        margin: auto;
-                        display: block;
-                        position: absolute;
-                        top: 0;
-                        bottom: 0;
-                        left: 0;
-                        right: 0;
                     }
                 </style>
             </head>
