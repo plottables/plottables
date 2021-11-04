@@ -6,6 +6,7 @@ export const minterContractAddress =
   "0x17D34c3C10eDE845D1875eA0Db4293BFEd9d4971";
 
 export const imageBaseUrl = "https://plottables-staging.s3.amazonaws.com/";
-export const liveBaseUrl = "https://generator-staging.artblocks.io/";
+export const liveBaseUrl =
+  "https://generator-staging.artblocks.io/0xd10e3dee203579fcee90ed7d0bdd8086f7e53beb/";
 
 export { coreAbi, minterAbi };

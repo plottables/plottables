@@ -1,5 +1,5 @@
 import Container from "@/components/Container";
-import { imageBaseUrl } from "@/config/index";
+import { imageBaseUrl, liveBaseUrl } from "@/config/index";
 import {
   ownerOf,
   projectDetails,
@@ -39,15 +39,21 @@ export default function Token({
       <br />
       <br />
       <div className={styles.viewOptions}>
+        <a href={`/token/${tokenId}/plot`} target="_blank" rel="noreferrer">
+          plot
+        </a>
+        <a href={`/api/tokens/${tokenId}/svg`} target="_blank" rel="noreferrer">
+          svg
+        </a>
         <a
-          href={`/api/tokens/${tokenId}/live`}
+          href={imageBaseUrl + tokenId + ".png"}
           target="_blank"
           rel="noreferrer"
         >
-          live
+          image
         </a>
-        <a href={`/token/${tokenId}/plot`} target="_blank" rel="noreferrer">
-          plot
+        <a href={liveBaseUrl + tokenId} target="_blank" rel="noreferrer">
+          live
         </a>
       </div>
       <img
