@@ -18,6 +18,14 @@ export const connectWallet = async () => {
       const addressArray = await window.ethereum.request({
         method: "eth_requestAccounts",
       });
+      let chainId = "0x1";
+      if (process.env.NEXT_PUBLIC_ETH_NETWORK === "ropsten") {
+        chainId = "0x3";
+      }
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: chainId }],
+      });
       return { address: addressArray[0] };
     } catch (err) {
       return { address: "" };
@@ -34,6 +42,14 @@ export const getCurrentWalletConnected = async () => {
         method: "eth_accounts",
       });
       if (addressArray.length > 0) {
+        let chainId = "0x1";
+        if (process.env.NEXT_PUBLIC_ETH_NETWORK === "ropsten") {
+          chainId = "0x3";
+        }
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: chainId }],
+        });
         return { address: addressArray[0] };
       } else {
         return { address: "" };
@@ -51,9 +67,6 @@ export const updateProjectName = async (
   projectId,
   projectName
 ) => {
-  // return coreContract.methods
-  //   .updateProjectName(projectId, projectName)
-  //   .send({ from: walletAddress });
   return await window.ethereum.request({
     method: "eth_sendTransaction",
     params: [
@@ -298,6 +311,14 @@ export const toggleProjectIsPaused = async (walletAddress, projectId) => {
 };
 
 export const purchase = async (walletAddress, projectId, value) => {
+  let chainId = "0x1";
+  if (process.env.NEXT_PUBLIC_ETH_NETWORK === "ropsten") {
+    chainId = "0x3";
+  }
+  await window.ethereum.request({
+    method: "wallet_switchEthereumChain",
+    params: [{ chainId: chainId }],
+  });
   const txn = {
     to: minterContractAddress,
     from: walletAddress,
