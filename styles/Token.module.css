@@ -1,6 +1,5 @@
 .liveview {
-  width: 550px;
-  height: 425px;
+  max-width: 500px;
   margin: auto;
   display: block;
   box-shadow: 5px 5px 10px grey;
