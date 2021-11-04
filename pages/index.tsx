@@ -1,6 +1,7 @@
 import Container from "@/components/Container";
 import Logo from "@/public/logo.svg";
 import styles from "@/styles/Home.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -26,6 +27,13 @@ export default function Home() {
         <br />
         &emsp;This is a place for generative artists working with pen plotters
         to share their work with a larger community.
+        <br />
+        <br />
+        <Link href={"/welcome"}>
+          <a target="_blank" rel="noreferrer">
+            Try it out!
+          </a>
+        </Link>
       </div>
     </Container>
   );
