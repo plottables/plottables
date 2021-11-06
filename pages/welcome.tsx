@@ -19,13 +19,3 @@ export default function Welcome(props: { owner: string }) {
     </div>
   );
 }
-
-// export const getServerSideProps: (context: any) => Promise<{ props: any }> =
-//     async (context) => {
-//         const tokenId = context.params?.tokenId;
-//         return {
-//             props: {
-//                 owner: await ownerOf(tokenId),
-//             },
-//         };
-//     };
