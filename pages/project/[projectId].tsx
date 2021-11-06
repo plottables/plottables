@@ -65,7 +65,6 @@ export default function Project(project: ProjectProps) {
     setIsProcessing(true);
     const tokenId = await waitForConfirmation(transaction);
     await router.push("/token/" + tokenId);
-    console.log(tokenId);
   };
 
   return (
@@ -76,7 +75,7 @@ export default function Project(project: ProjectProps) {
           display: isProcessing ? "block" : "none",
         }}
       >
-        <div>processing your transaction...</div>
+        <div>processing...</div>
       </div>
       <br />
       {project.projectDetails.projectName} by {project.projectDetails.artist}
