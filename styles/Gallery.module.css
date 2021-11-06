@@ -9,7 +9,7 @@
 }
 
 .projectPreview {
-  flex: 2;
+  flex: 1;
   text-align: center;
 }
 
@@ -17,7 +17,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  max-height: 300px;
-  max-width: 300px;
+  max-height: 500px;
+  max-width: 500px;
   box-shadow: 5px 5px 10px grey;
 }
