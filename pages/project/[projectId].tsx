@@ -6,14 +6,15 @@ import {
   projectScriptInfo,
   projectTokenInfo,
 } from "@/lib/coreContract";
+import { connectWallet, purchase, waitForConfirmation } from "@/lib/interact";
 import {
   ProjectDetails,
   ProjectScriptInfo,
   ProjectTokenInfo,
 } from "@/lib/types";
 import styles from "@/styles/Project.module.css";
-import { connectWallet, purchase } from "@/utils/interact";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 
@@ -25,9 +26,11 @@ interface ProjectProps {
 }
 
 export default function Project(project: ProjectProps) {
+  const router = useRouter();
   const walletAddress = useWalletContext();
   const [offset, setOffset] = useState(0);
   const [tokens, setTokens] = useState<Array<string>>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     let tokens = [];
@@ -57,21 +60,23 @@ export default function Project(project: ProjectProps) {
   const handlePurchaseClick = async () => {
     if (walletAddress.length === 0) {
       await connectWallet();
-    } else if (
-      !project.projectScriptInfo.paused ||
-      walletAddress.toLowerCase() ===
-        project.projectTokenInfo.artistAddress.toLowerCase()
-    ) {
-      await purchase(
-        walletAddress,
-        project.projectId,
-        project.projectTokenInfo.pricePerTokenInWei
-      );
     }
+    const transaction = await purchase(project.projectId);
+    setIsProcessing(true);
+    const tokenId = await waitForConfirmation(transaction);
+    await router.push("/token/" + tokenId);
   };
 
   return (
     <Container>
+      <div
+        className={styles.overlay}
+        style={{
+          display: isProcessing ? "block" : "none",
+        }}
+      >
+        <div>processing...</div>
+      </div>
       <br />
       {project.projectDetails.projectName} by {project.projectDetails.artist}
       <br />

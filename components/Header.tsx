@@ -1,5 +1,5 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
-import { connectWallet } from "@/utils/interact";
+import { connectWallet } from "@/lib/interact";
 import Link from "next/link";
 import React from "react";
 

@@ -1,4 +1,4 @@
-import { getCurrentWalletConnected } from "@/utils/interact";
+import { getCurrentWalletConnected } from "@/lib/interact";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 declare const window: any;

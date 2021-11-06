@@ -1,7 +1,7 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import { ownerOf } from "@/lib/coreContract";
+import { connectWallet } from "@/lib/interact";
 import styles from "@/styles/Plot.module.css";
-import { connectWallet } from "@/utils/interact";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
