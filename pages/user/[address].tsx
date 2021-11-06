@@ -5,6 +5,7 @@ import {
   tokenIdToProjectId,
   tokensOfOwner,
 } from "@/lib/coreContract";
+import { makeLineBreak } from "@/lib/makeLineBreak";
 import styles from "@/styles/User.module.css";
 import Link from "next/link";
 import { Key } from "react";
@@ -20,6 +21,8 @@ export default function User({ address, organizedTokens }: UserProps) {
       {/* eslint-disable-next-line react/no-unescaped-entities */}
       User {address}'s Collection
       <br />
+      <br />
+      {makeLineBreak()}
       <br />
       {Object.keys(organizedTokens).map((k) => {
         // @ts-ignore
@@ -47,6 +50,7 @@ export default function User({ address, organizedTokens }: UserProps) {
               })}
             </div>
             <br />
+            {makeLineBreak()}
             <br />
           </div>
         );

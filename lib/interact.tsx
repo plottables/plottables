@@ -20,6 +20,8 @@ export const connectWallet = async () => {
     ]);
     const signer = provider.getSigner();
     const userAddress = await signer.getAddress();
+    // todo: display ens name instead of wallet address
+    const ensName = await provider.lookupAddress(userAddress);
     return { address: userAddress.toLowerCase() };
   } catch (err) {
     return { address: "" };
@@ -36,6 +38,8 @@ export const getCurrentWalletConnected = async () => {
     ]);
     const signer = provider.getSigner();
     const userAddress = await signer.getAddress();
+    // todo: display ens name instead of wallet address
+    const ensName = await provider.lookupAddress(userAddress);
     return { address: userAddress.toLowerCase() };
   } catch (err) {
     return { address: "" };

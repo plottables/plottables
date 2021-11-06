@@ -7,6 +7,7 @@ import {
 } from "@/lib/coreContract";
 import { ProjectDetails } from "@/lib/types";
 import styles from "@/styles/Token.module.css";
+import Link from "next/link";
 
 interface TokenProps {
   tokenId: string;
@@ -35,7 +36,10 @@ export default function Token({
       {projectDetails.description}
       <br />
       <br />
-      Owned by {ownerOf}
+      Owned by{" "}
+      <Link href={`/user/${ownerOf}`}>
+        <a>{ownerOf.toLowerCase().substring(0, 8)}</a>
+      </Link>
       <br />
       <br />
       <div className={styles.viewOptions}>

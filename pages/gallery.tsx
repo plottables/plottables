@@ -1,6 +1,7 @@
 import Container from "@/components/Container";
 import { imageBaseUrl } from "@/config/index";
 import { projectDetails, projectTokenInfo } from "@/lib/coreContract";
+import { makeLineBreak } from "@/lib/makeLineBreak";
 import styles from "@/styles/Gallery.module.css";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
@@ -9,39 +10,10 @@ interface GalleryProps {
   projects: any[];
 }
 
-function makeBreak() {
-  let path = "M 0 " + (10 * Math.random() + 5);
-  for (let i = 1; i < 100; i++) {
-    path +=
-      " S " +
-      (i - 0.5) +
-      " " +
-      (10 * Math.random() + 5) +
-      " " +
-      i +
-      " " +
-      (10 * Math.random() + 5);
-  }
-  return (
-    <svg
-      preserveAspectRatio="none"
-      width="100%"
-      height="17px"
-      viewBox="0 0 100 20"
-    >
-      <path
-        style={{ fill: "none", strokeWidth: "2", stroke: "rgb(0%,0%,0%)" }}
-        d={path}
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  );
-}
-
 export default function Gallery({ projects }: GalleryProps) {
   return (
     <Container>
-      {makeBreak()}
+      {makeLineBreak()}
       <br />
       <br />
       {projects.map((p) => {
@@ -82,7 +54,7 @@ export default function Gallery({ projects }: GalleryProps) {
             </div>
             <br />
             <br />
-            {makeBreak()}
+            {makeLineBreak()}
             <br />
             <br />
           </div>
