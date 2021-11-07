@@ -25,6 +25,12 @@ export default function Token({
   projectDetails,
   projectScriptInfo,
 }: TokenProps) {
+  let scale;
+  try {
+    scale = 1 / JSON.parse(projectScriptInfo.scriptJSON).aspectRatio;
+  } catch {
+    scale = 1;
+  }
   return (
     <Container>
       <br />
@@ -69,10 +75,7 @@ export default function Token({
           src={liveBaseUrl + tokenId}
           style={{
             width: "500px",
-            height:
-              "calc(" +
-              1 / JSON.parse(projectScriptInfo.scriptJSON).aspectRatio +
-              "*500px)",
+            height: "calc(" + scale + "*500px)",
           }}
         />
       </div>
