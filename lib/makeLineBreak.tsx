@@ -1,6 +1,6 @@
 export function makeLineBreak() {
   let path = "M 0 " + (10 * Math.random() + 5);
-  for (let i = 1; i < 100; i++) {
+  for (let i = 1; i <= 20; i++) {
     path +=
       " S " +
       (i - 0.5) +
@@ -16,7 +16,7 @@ export function makeLineBreak() {
       preserveAspectRatio="none"
       width="100%"
       height="17px"
-      viewBox="0 0 100 20"
+      viewBox="0 0 20 20"
     >
       <path
         style={{ fill: "none", strokeWidth: "2", stroke: "rgb(0%,0%,0%)" }}
