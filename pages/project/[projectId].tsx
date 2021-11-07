@@ -102,6 +102,9 @@ export default function Project(project: ProjectProps) {
         <div className={styles.purchaseButton} onClick={handlePurchaseClick}>
           {walletAddress.length === 0
             ? "Connect Wallet to Purchase"
+            : project.projectTokenInfo.invocations ==
+              project.projectTokenInfo.maxInvocations
+            ? "Sold Out"
             : !project.projectScriptInfo.paused
             ? "Purchase"
             : "Purchases Paused"}
