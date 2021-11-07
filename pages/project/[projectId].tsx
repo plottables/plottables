@@ -62,9 +62,11 @@ export default function Project(project: ProjectProps) {
       await connectWallet();
     }
     const transaction = await purchase(project.projectId);
-    setIsProcessing(true);
-    const tokenId = await waitForConfirmation(transaction);
-    await router.push("/token/" + tokenId);
+    if (transaction) {
+      setIsProcessing(true);
+      const tokenId = await waitForConfirmation(transaction);
+      await router.push("/token/" + tokenId);
+    }
   };
 
   return (
@@ -105,7 +107,8 @@ export default function Project(project: ProjectProps) {
             : project.projectTokenInfo.invocations ==
               project.projectTokenInfo.maxInvocations
             ? "Sold Out"
-            : !project.projectScriptInfo.paused
+            : !project.projectScriptInfo.paused &&
+              project.projectTokenInfo.active
             ? "Purchase"
             : "Purchases Paused"}
         </div>

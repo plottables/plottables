@@ -17,29 +17,29 @@ const Footer: React.FC = ({ children }) => {
           target="_blank"
           rel="noreferrer"
         >
-          <img src="/icons/instagram.png"/>
+          <img src="/icons/instagram.png" />
         </a>
         <a
           href="https://twitter.com/plottablesio"
           target="_blank"
           rel="noreferrer"
         >
-            <img src="/icons/twitter.png"/>
+          <img src="/icons/twitter.png" />
         </a>
         <a
           href="https://github.com/plottables"
           target="_blank"
           rel="noreferrer"
         >
-            <img src="/icons/github.png"/>
+          <img src="/icons/github.png" />
         </a>
-          <a
-              href="https://discord.gg/umEbqdFxQv"
-              target="_blank"
-              rel="noreferrer"
-          >
-              <img src="/icons/discord.png"/>
-          </a>
+        <a
+          href="https://discord.gg/umEbqdFxQv"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img src="/icons/discord.png" />
+        </a>
       </div>
       <div className="right">
         <a href="https://www.artblocks.io/" target="_blank" rel="noreferrer">
