@@ -90,10 +90,14 @@ a:visited {
 }
 
 .center > a {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .right > a {
   padding-left: 20px;
+}
+
+.footer > .center > a > img {
+  height: 15px;
 }

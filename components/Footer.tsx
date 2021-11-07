@@ -12,30 +12,34 @@ const Footer: React.FC = ({ children }) => {
         </a>
       </div>
       <div className="center">
-        <a href="https://www.apply.com" target="_blank" rel="noreferrer">
-          apply
-        </a>
         <a
           href="https://www.instagram.com/plottables.io/"
           target="_blank"
           rel="noreferrer"
         >
-          instagram
+          <img src="icons/instagram.png"/>
         </a>
         <a
-          href="https://twitter.com/plottables_io"
+          href="https://twitter.com/plottablesio"
           target="_blank"
           rel="noreferrer"
         >
-          twitter
+            <img src="icons/twitter.png"/>
         </a>
         <a
           href="https://github.com/plottables"
           target="_blank"
           rel="noreferrer"
         >
-          github
+            <img src="icons/github.png"/>
         </a>
+          <a
+              href="https://discord.gg/umEbqdFxQv"
+              target="_blank"
+              rel="noreferrer"
+          >
+              <img src="icons/discord.png"/>
+          </a>
       </div>
       <div className="right">
         <a href="https://www.artblocks.io/" target="_blank" rel="noreferrer">
