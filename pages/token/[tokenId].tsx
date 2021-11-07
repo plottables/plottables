@@ -60,11 +60,13 @@ export default function Token({
           live
         </a>
       </div>
-      <img
+        <div className={styles.liveviewContainer}>
+      <iframe
         className={styles.liveview}
-        src={imageBaseUrl + tokenId + ".png"}
-        alt={"an image"}
+        src={`/api/tokens/${tokenId}/live`}
+        style={{ width: "500px", height: "calc(1.294*500px)" }}
       />
+        </div>
     </Container>
   );
 }

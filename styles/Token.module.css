@@ -1,8 +1,15 @@
+.liveviewContainer {
+  background-image: url('/icons/spinner.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .liveview {
   max-width: 500px;
   margin: auto;
   display: block;
   box-shadow: 5px 5px 10px grey;
+  border: none;
 }
 
 .viewOptions {
