@@ -3,9 +3,10 @@ import { imageBaseUrl, liveBaseUrl } from "@/config/index";
 import {
   ownerOf,
   projectDetails,
+  projectScriptInfo,
   tokenIdToProjectId,
 } from "@/lib/coreContract";
-import { ProjectDetails } from "@/lib/types";
+import { ProjectDetails, ProjectScriptInfo } from "@/lib/types";
 import styles from "@/styles/Token.module.css";
 import Link from "next/link";
 
@@ -14,6 +15,7 @@ interface TokenProps {
   projectId: string;
   ownerOf: string;
   projectDetails: ProjectDetails;
+  projectScriptInfo: ProjectScriptInfo;
 }
 
 export default function Token({
@@ -21,6 +23,7 @@ export default function Token({
   projectId,
   ownerOf,
   projectDetails,
+  projectScriptInfo,
 }: TokenProps) {
   return (
     <Container>
@@ -60,13 +63,19 @@ export default function Token({
           live
         </a>
       </div>
-        <div className={styles.liveviewContainer}>
-      <iframe
-        className={styles.liveview}
-        src={`/api/tokens/${tokenId}/live`}
-        style={{ width: "500px", height: "calc(1.294*500px)" }}
-      />
-        </div>
+      <div className={styles.liveviewContainer}>
+        <iframe
+          className={styles.liveview}
+          src={liveBaseUrl + tokenId}
+          style={{
+            width: "500px",
+            height:
+              "calc(" +
+              1 / JSON.parse(projectScriptInfo.scriptJSON).aspectRatio +
+              "*500px)",
+          }}
+        />
+      </div>
     </Container>
   );
 }
@@ -79,6 +88,7 @@ export const getServerSideProps: ({ params }: { params: any }) => Promise<
         ownerOf: string;
         projectId: string;
         projectDetails: string;
+        projectScriptInfo: string;
       };
     }
 > = async ({ params }) => {
@@ -98,6 +108,7 @@ export const getServerSideProps: ({ params }: { params: any }) => Promise<
       projectId: projectId,
       ownerOf: await ownerOf(tokenId),
       projectDetails: await projectDetails(projectId),
+      projectScriptInfo: await projectScriptInfo(projectId),
     },
   };
 };
