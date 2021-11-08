@@ -24,7 +24,7 @@ export const WalletProvider: React.FC = ({ children }) => {
           setWalletAddress("");
         }
       });
-      window.ethereum.on('chainChanged', (_chainId: string) => {
+      window.ethereum.on("chainChanged", (_chainId: string) => {
         window.location.reload();
       });
     }
