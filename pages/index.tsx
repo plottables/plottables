@@ -18,15 +18,31 @@ export default function Home() {
         <br />
         <br />
         <br />
-        What is it?
+        <span className={styles.highlight}>What is it?</span>
         <br />
-        &emsp;A curated on-chain generative art platform powered by ArtBlocks.
+        A curated on-chain generative art platform powered by ArtBlocks.
         <br />
         <br />
-        Who is it for?
+        <span className={styles.highlight}>Who is it for?</span>
         <br />
-        &emsp;This is a place for generative artists working with pen plotters
-        to share their work with a larger community.
+        This is a place for generative artists working with pen plotters to
+        share their work with a larger community.
+        <br />
+        <br />
+        <span className={styles.highlight}>
+          Do I need to own a pen plotter?
+        </span>
+        <br />
+        Nope! All works minted here exists just like any other NFT.
+        <br />
+        <br />
+        <span className={styles.highlight}>
+          Which pen plotters are supported?
+        </span>
+        <br />
+        Currently only the <a href="https://www.axidraw.com/">AxiDraw</a> is
+        supported but we are looking forward to adding support for others in
+        the future.
         <br />
         <br />
         <Link href={"/welcome"}>
