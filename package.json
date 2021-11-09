@@ -2,6 +2,8 @@
   "name": "plottables",
   "version": "1.0.0",
   "private": true,
+  "author": "Matt Jacobson <matthew.g.jacobson@gmail.com>",
+  "license": "AGPL-3.0-only",
   "scripts": {
     "dev": "next dev",
     "prebuild": "typechain --target=web3-v1 'config/*.json' --always-generate-overloads",
