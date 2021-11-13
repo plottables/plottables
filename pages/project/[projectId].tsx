@@ -32,6 +32,13 @@ export default function Project(project: ProjectProps) {
   const [tokens, setTokens] = useState<Array<string>>([]);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  let scriptType;
+  try {
+    scriptType = JSON.parse(project.projectScriptInfo.scriptJSON).type;
+  } catch {
+    scriptType = "";
+  }
+
   useEffect(() => {
     let tokens = [];
     for (
@@ -103,7 +110,7 @@ export default function Project(project: ProjectProps) {
       License: {project.projectDetails.license}
       <br />
       <br />
-      Script: {JSON.parse(project.projectScriptInfo.scriptJSON).type}
+      Script: {scriptType}
       <br />
       <br />
       {
