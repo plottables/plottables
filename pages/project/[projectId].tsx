@@ -100,6 +100,12 @@ export default function Project(project: ProjectProps) {
         1000000000000000000}
       <br />
       <br />
+      License: {project.projectDetails.license}
+      <br />
+      <br />
+      Script: {JSON.parse(project.projectScriptInfo.scriptJSON).type}
+      <br />
+      <br />
       {
         <div
           className={`${styles.purchaseButton} ${styles.highlight}`}
