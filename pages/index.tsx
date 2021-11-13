@@ -41,8 +41,8 @@ export default function Home() {
         </span>
         <br />
         Currently only the <a href="https://www.axidraw.com/">AxiDraw</a> is
-        supported but we are looking forward to adding support for others in
-        the future.
+        supported but we are looking forward to adding support for others in the
+        future.
         <br />
         <br />
         <Link href={"/welcome"}>

@@ -1,5 +1,5 @@
 import Container from "@/components/Container";
-import { imageBaseUrl, liveBaseUrl } from "@/config/index";
+import { coreContractAddress, imageBaseUrl, liveBaseUrl } from "@/config/index";
 import {
   ownerOf,
   projectDetails,
@@ -16,6 +16,7 @@ interface TokenProps {
   ownerOf: string;
   projectDetails: ProjectDetails;
   projectScriptInfo: ProjectScriptInfo;
+  features: Object;
 }
 
 export default function Token({
@@ -24,6 +25,7 @@ export default function Token({
   ownerOf,
   projectDetails,
   projectScriptInfo,
+  features,
 }: TokenProps) {
   let scale;
   try {
@@ -31,18 +33,12 @@ export default function Token({
   } catch {
     scale = 1;
   }
+
   return (
     <Container>
-      <br />
       {projectDetails.projectName} #
       {parseInt(tokenId) - 1000000 * parseInt(projectId)} by{" "}
       {projectDetails.artist}
-      <br />
-      <br />
-      <a href={projectDetails.website}>{projectDetails.website}</a>
-      <br />
-      <br />
-      {projectDetails.description}
       <br />
       <br />
       Owned by{" "}
@@ -50,6 +46,23 @@ export default function Token({
         <a>{ownerOf.toLowerCase().substring(0, 8)}</a>
       </Link>
       <br />
+      <br />
+      <div className={styles.viewOptions}>Features</div>
+      <div className={`${styles.featuresContainer} ${styles.highlight}`}>
+        {Object.keys(features).map(function (key: string, index) {
+          return (
+            <div key={key} className={styles.feature}>
+              {key}: {features[key as keyof typeof features]}
+            </div>
+          );
+        })}
+      </div>
+      <br />
+      <div className={styles.viewOptions}>
+        <Link href={`/project/${projectId}`}>
+          <a>Visit the {projectDetails.projectName} Gallery</a>
+        </Link>
+      </div>
       <br />
       <div className={styles.viewOptions}>
         <a href={`/token/${tokenId}/plot`} target="_blank" rel="noreferrer">
@@ -103,6 +116,11 @@ export const getServerSideProps: ({ params }: { params: any }) => Promise<
     };
   }
 
+  const res = await fetch(
+    `https://token.staging.artblocks.io/${coreContractAddress.toLowerCase()}/${tokenId}`
+  );
+  const data = await res.json();
+
   const projectId = await tokenIdToProjectId(tokenId);
 
   return {
@@ -112,6 +130,7 @@ export const getServerSideProps: ({ params }: { params: any }) => Promise<
       ownerOf: await ownerOf(tokenId),
       projectDetails: await projectDetails(projectId),
       projectScriptInfo: await projectScriptInfo(projectId),
+      features: data.features,
     },
   };
 };
