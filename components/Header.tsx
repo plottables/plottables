@@ -16,6 +16,9 @@ const Header: React.FC = ({ children }) => {
       <Link href={"/gallery"}>
         <a>Gallery</a>
       </Link>
+      <Link href={"/acknowledgments"}>
+        <a>Acknowledgments</a>
+      </Link>
       <div id="connectButton" onClick={connectWalletPressed}>
         <span>
           {walletAddress.length > 0 ? (
