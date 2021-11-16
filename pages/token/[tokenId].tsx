@@ -49,13 +49,13 @@ export default function Token({
       <br />
       <div className={styles.viewOptions}>Features</div>
       <div className={`${styles.featuresContainer} ${styles.highlight}`}>
-        {Object.keys(features).map(function (key: string, index) {
+        {features ? Object.keys(features).map(function (key: string, index) {
           return (
             <div key={key} className={styles.feature}>
               {key}: {features[key as keyof typeof features]}
             </div>
           );
-        })}
+        }) : null}
       </div>
       <br />
       <div className={styles.viewOptions}>
@@ -130,7 +130,7 @@ export const getServerSideProps: ({ params }: { params: any }) => Promise<
       ownerOf: await ownerOf(tokenId),
       projectDetails: await projectDetails(projectId),
       projectScriptInfo: await projectScriptInfo(projectId),
-      features: data.features,
+      features: data.features ? data.features : null,
     },
   };
 };

@@ -1,4 +1,5 @@
 import coreAbi from "@/config/coreAbi.json";
+import erc20Abi from "@/config/erc20Abi.json";
 import { coreContractAddress, minterContractAddress } from "@/config/index";
 import minterAbi from "@/config/minterAbi.json";
 import { ethers } from "ethers";
@@ -67,24 +68,54 @@ export const purchase = async (projectId: string) => {
   const address = await coreContract.projectIdToArtistAddress(projectId);
 
   if (
-    ((!paused && active) || userAddress == address) &&
-    parseInt(invocations) < parseInt(maxInvocations)
+    parseInt(invocations) >= parseInt(maxInvocations) ||
+    (userAddress != address && (paused || !active))
   ) {
-    // Set up minter contract connected to users wallet
-    const minterContract = new ethers.Contract(
-      minterContractAddress,
-      minterAbi,
-      signer
-    );
-
-    // Initiate purchase transaction (user must confirm through metamask).
-    // If paying in ether, we must include a payable value otherwise payable value will be 0.
-    return await minterContract.purchase(projectId, {
-      value: pricePerTokenInWei,
-    });
-  } else {
+    // Disable purchase
     return;
   }
+
+  const NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
+  const projectUsesErc20 = currencyAddress && currencyAddress !== NULL_ADDRESS;
+  if (projectUsesErc20) {
+    // Set up ERC-20 contract
+    const erc20 = new ethers.Contract(currencyAddress, erc20Abi, signer);
+
+    // Check that the user has the required amount of ERC-20
+    const balance = await erc20.balanceOf(userAddress);
+    if (balance.lt(pricePerTokenInWei)) {
+      // Show insufficent funds error
+      return;
+    }
+
+    // Check allowance for minterAddress allowed by user
+    const allowance = await erc20.allowance(userAddress, minterContractAddress);
+
+    // If the user has not yet allowed enough of their ERC-20 to be used
+    // by the minter, have them approve enough.
+    if (allowance.lt(pricePerTokenInWei)) {
+      // Trigger user wallet dialogue. This should be done in response to user interaction.
+      const approveTransaction = await erc20.approve(
+        minterContractAddress,
+        pricePerTokenInWei
+      );
+      // Wait for approve transaction confirmation
+      await approveTransaction.wait(1);
+    }
+  }
+
+  // Set up minter contract connected to users wallet
+  const minterContract = new ethers.Contract(
+    minterContractAddress,
+    minterAbi,
+    signer
+  );
+
+  // Initiate purchase transaction (user must confirm through metamask).
+  // If paying in ether, we must include a payable value otherwise payable value will be 0.
+  return await minterContract.purchase(projectId, {
+    value: projectUsesErc20 ? "0" : pricePerTokenInWei,
+  });
 };
 
 export const waitForConfirmation = async (transaction: {
