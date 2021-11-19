@@ -31,6 +31,7 @@ export default function Project(project: ProjectProps) {
   const [offset, setOffset] = useState(0);
   const [tokens, setTokens] = useState<Array<string>>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [countConfirmations, setCountConfirmations] = useState(0);
 
   let scriptType;
   try {
@@ -71,7 +72,12 @@ export default function Project(project: ProjectProps) {
     const transaction = await purchase(project.projectId);
     if (transaction) {
       setIsProcessing(true);
-      const tokenId = await waitForConfirmation(transaction);
+      await waitForConfirmation(transaction, 1);
+      setCountConfirmations(1);
+      await waitForConfirmation(transaction, 2);
+      setCountConfirmations(2);
+      const tokenId = await waitForConfirmation(transaction, 3);
+      setCountConfirmations(3);
       await router.push("/token/" + tokenId);
     }
   };
@@ -84,7 +90,7 @@ export default function Project(project: ProjectProps) {
           display: isProcessing ? "block" : "none",
         }}
       >
-        <div>processing...</div>
+        <div>processing... {countConfirmations} / 3</div>
       </div>
       <br />
       {project.projectDetails.projectName} by {project.projectDetails.artist}

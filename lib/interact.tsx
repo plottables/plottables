@@ -118,9 +118,12 @@ export const purchase = async (projectId: string) => {
   });
 };
 
-export const waitForConfirmation = async (transaction: {
-  wait: (arg0: number) => any;
-}) => {
+export const waitForConfirmation = async (
+  transaction: {
+    wait: (arg0: number) => any;
+  },
+  blockNumber: number
+) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const coreContract = new ethers.Contract(
     coreContractAddress,
@@ -131,7 +134,7 @@ export const waitForConfirmation = async (transaction: {
   // number of block confirmations to wait for.  You may want to wait longer than a single
   // block to prevent showing the wrong output in case of a chain reorg. The Art Blocks site
   // waits for 3 block confirmations.
-  const receipt = await transaction.wait(3);
+  const receipt = await transaction.wait(blockNumber);
 
   // Iterate through events to find mint event
   const mintEvent = (receipt.events || []).find(

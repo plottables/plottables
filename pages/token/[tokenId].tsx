@@ -49,13 +49,15 @@ export default function Token({
       <br />
       <div className={styles.viewOptions}>Features</div>
       <div className={`${styles.featuresContainer} ${styles.highlight}`}>
-        {features ? Object.keys(features).map(function (key: string, index) {
-          return (
-            <div key={key} className={styles.feature}>
-              {key}: {features[key as keyof typeof features]}
-            </div>
-          );
-        }) : null}
+        {features
+          ? Object.keys(features).map(function (key: string, index) {
+              return (
+                <div key={key} className={styles.feature}>
+                  {key}: {features[key as keyof typeof features]}
+                </div>
+              );
+            })
+          : null}
       </div>
       <br />
       <div className={styles.viewOptions}>
