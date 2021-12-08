@@ -13,7 +13,7 @@ export const minterContractAddress =
 
 export const imageBaseUrl =
   process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
-    ? "https://plottables.s3.amazonaws.com/"
+    ? "https://plottables-mainnet.s3.amazonaws.com/"
     : "https://plottables-staging.s3.amazonaws.com/";
 
 export const liveBaseUrl =
