@@ -141,7 +141,7 @@ export default function Project(project: ProjectProps) {
         <a
           href={
             process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
-              ? `https://artblocks.io/project/0xa319C382a702682129fcbF55d514E61a16f97f9c-${project.projectId}`
+              ? `https://artblocks.io/project/0xa319c382a702682129fcbf55d514e61a16f97f9c-${project.projectId}`
               : `https://artist-staging.artblocks.io/project/0xd10e3dee203579fcee90ed7d0bdd8086f7e53beb-${project.projectId}`
           }
           target="_blank"
