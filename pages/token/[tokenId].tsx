@@ -119,7 +119,9 @@ export const getServerSideProps: ({ params }: { params: any }) => Promise<
   }
 
   const res = await fetch(
-    `https://token.staging.artblocks.io/${coreContractAddress.toLowerCase()}/${tokenId}`
+    process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
+      ? `https://token.artblocks.io/${coreContractAddress.toLowerCase()}/${tokenId}`
+      : `https://token.staging.artblocks.io/${coreContractAddress.toLowerCase()}/${tokenId}`
   );
   const data = await res.json();
 
