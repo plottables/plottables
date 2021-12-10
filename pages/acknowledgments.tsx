@@ -1,5 +1,3 @@
-// RightScale products utilize third-party open source software subject to the licenses described below.
-
 import Container from "@/components/Container";
 import { makeLineBreak } from "@/lib/makeLineBreak";
 
