@@ -22,9 +22,25 @@
   margin-right: 20px;
 }
 
+.container {
+  display: flex;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.tokenInfo {
+  flex: 1;
+}
+
+.tokenLive {
+  flex: 1;
+}
+
 .featuresContainer {
   display: flex;
   flex-wrap: wrap;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .featuresContainer > .feature {

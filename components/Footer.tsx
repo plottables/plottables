@@ -4,12 +4,8 @@ const Footer: React.FC = ({ children }) => {
   return (
     <div className="footer">
       <div className="left">
-        <a href={"/termsOfUse"} target="_blank" rel="noreferrer">
-          Terms of Use
-        </a>
-        <a href={"/privacyPolicy"} target="_blank" rel="noreferrer">
-          Privacy Policy
-        </a>
+        <a href={"/termsOfUse"}>Terms of Use</a>
+        <a href={"/privacyPolicy"}>Privacy Policy</a>
       </div>
       <div className="center">
         <a
