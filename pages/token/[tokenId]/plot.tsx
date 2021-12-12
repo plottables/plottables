@@ -1,23 +1,30 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
-import { ownerOf } from "@/lib/coreContract";
+import {
+  ownerOf,
+  projectIdToArtistAddress,
+  tokenIdToProjectId,
+} from "@/lib/coreContract";
 import { connectWallet } from "@/lib/interact";
 import styles from "@/styles/Plot.module.css";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-export default function Plot(props: { owner: string }) {
+export default function Plot(props: { owner: string; artistAddress: string }) {
   const router = useRouter();
   const { tokenId } = router.query;
   const walletAddress = useWalletContext();
   const [showState, setShowState] = useState(false);
 
   useEffect(() => {
-    if (walletAddress.toLowerCase() === props.owner.toLowerCase()) {
+    if (
+      walletAddress.toLowerCase() === props.owner.toLowerCase() ||
+      walletAddress.toLowerCase() === props.artistAddress.toLowerCase()
+    ) {
       setShowState(true);
     } else {
       setShowState(false);
     }
-  }, [walletAddress, props.owner]);
+  }, [walletAddress, props.owner, props.artistAddress]);
 
   const reconnect = async () => {
     if (walletAddress.length != 0) {
@@ -57,9 +64,12 @@ export default function Plot(props: { owner: string }) {
 export const getServerSideProps: (context: any) => Promise<{ props: any }> =
   async (context) => {
     const tokenId = context.params?.tokenId;
+    const projectId = await tokenIdToProjectId(tokenId);
     return {
       props: {
         owner: await ownerOf(tokenId),
+        projectId: projectId,
+        artistAddress: await projectIdToArtistAddress(projectId),
       },
     };
   };
