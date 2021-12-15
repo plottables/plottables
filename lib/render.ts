@@ -1,8 +1,8 @@
+import { liveBaseUrl } from "@/config/index";
 import coreContract from "@/lib/coreContract";
-import getScript from "@/lib/getScript";
 import chromium from "chrome-aws-lambda";
 
-async function getBrowserInstance() {
+async function getBrowserInstance(width: number, height: number) {
   const executablePath = await chromium.executablePath;
 
   if (!executablePath) {
@@ -12,6 +12,10 @@ async function getBrowserInstance() {
       args: chromium.args,
       headless: true,
       ignoreHTTPSErrors: true,
+      defaultViewport: {
+        width: width,
+        height: height,
+      },
     });
   }
 
@@ -20,44 +24,19 @@ async function getBrowserInstance() {
     executablePath,
     headless: chromium.headless,
     ignoreHTTPSErrors: true,
+    defaultViewport: {
+      width: width,
+      height: height,
+    },
   });
 }
 
-function generateHtml(tokenId: any, hash: any, script: any) {
-  return `
-  <html>
-    <head>
-      <title>${tokenId}</title>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-      <script>
-        let plot = true;
-        let tokenData = {"hash":"${hash}"};
-      </script>
-      <script>
-        ${script}
-      </script>
-      <style>
-        * { margin: 0; padding: 0; }
-      </style>
-    </head>
-    <body>
-      <div id='app'></div>
-    </body>
-  </html>
-    `;
-}
-export async function getSVG(tokenId: string) {
-  const hash = await coreContract.methods.tokenIdToHash(tokenId).call();
-  const projectId = await coreContract.methods
-    .tokenIdToProjectId(tokenId)
-    .call();
-  let script = await getScript(projectId);
-
+export async function getSVG(tokenId: string, width: string = "1920") {
   try {
-    const browser = await getBrowserInstance();
+    const browser = await getBrowserInstance(parseInt(width), parseInt(width));
     const page = await browser.newPage();
-    const html = generateHtml(tokenId, hash, script);
-    await page.setContent(html);
+    const htmlResponse = await fetch(`${liveBaseUrl}${tokenId}`);
+    await page.setContent(await htmlResponse.text());
 
     let data = await page.evaluate(
       () => document.querySelector("svg")!.outerHTML
@@ -73,19 +52,24 @@ export async function getSVG(tokenId: string) {
   }
 }
 
-export async function getPNG(tokenId: string) {
-  const hash = await coreContract.methods.tokenIdToHash(tokenId).call();
+export async function getPNG(tokenId: string, width: string) {
   const projectId = await coreContract.methods
     .tokenIdToProjectId(tokenId)
     .call();
-  let script = await getScript(projectId);
-
+  const scriptInfo = await coreContract.methods
+    .projectScriptInfo(projectId)
+    .call();
+  let aspectRatio = 1;
   try {
-    const browser = await getBrowserInstance();
+    const scriptJson = JSON.parse(scriptInfo.scriptJSON);
+    aspectRatio = parseFloat(scriptJson.aspectRatio);
+  } catch (e) {}
+  const height = Math.round(parseInt(width) / aspectRatio);
+  try {
+    const browser = await getBrowserInstance(parseInt(width), height);
     const page = await browser.newPage();
-    const html = generateHtml(tokenId, hash, script);
-    await page.setContent(html);
-
+    const htmlResponse = await fetch(`${liveBaseUrl}${tokenId}`);
+    await page.setContent(await htmlResponse.text());
     const element = await page.$("svg");
     return await element.screenshot();
   } catch (err) {

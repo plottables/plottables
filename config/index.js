@@ -18,7 +18,7 @@ export const imageBaseUrl =
 
 export const liveBaseUrl =
   process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
-    ? "https://generator.artblocks.io/0xa319C382a702682129fcbF55d514E61a16f97f9c/"
-    : "https://generator-staging.artblocks.io/0xd10e3dee203579fcee90ed7d0bdd8086f7e53beb/";
+    ? `https://generator.artblocks.io/${coreContractAddress}/`
+    : `https://generator-staging.artblocks.io/${coreContractAddress}/`;
 
 export { coreAbi, minterAbi };

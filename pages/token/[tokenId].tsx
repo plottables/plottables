@@ -90,7 +90,7 @@ export default function Token({
               plot
             </a>
             <a
-              href={`/api/tokens/${tokenId}/svg`}
+              href={`/api/token/${tokenId}/svg`}
               target="_blank"
               rel="noreferrer"
             >

@@ -8,7 +8,7 @@ export default function Welcome(props: { owner: string }) {
     <div style={{ width: "100vw", height: "100vh" }}>
       <div style={{ width: "100%", height: "100%" }}>
         <iframe
-          src={`/api/tokens/welcome/plot`}
+          src={`/api/token/welcome/plot`}
           style={{
             height: "100%",
             width: "100%",

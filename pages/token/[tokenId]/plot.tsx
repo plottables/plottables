@@ -48,7 +48,7 @@ export default function Plot(props: { owner: string; artistAddress: string }) {
       </div>
       <div style={{ width: "100%", height: "100%" }}>
         <iframe
-          src={`/api/tokens/${tokenId}/plot`}
+          src={`/api/token/${tokenId}/plot`}
           style={{
             height: "100%",
             width: "100%",
