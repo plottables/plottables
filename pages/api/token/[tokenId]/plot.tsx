@@ -1,5 +1,4 @@
-import coreContract from "@/lib/coreContract";
-import getScript from "@/lib/getScript";
+import { liveBaseUrl } from "@/config/index";
 
 export default async function handler(
   req: { query: { tokenId: any } },
@@ -7,88 +6,51 @@ export default async function handler(
 ) {
   const { tokenId } = req.query;
 
-  let hash, script;
+  let html: string;
   if (tokenId === "welcome") {
-    hash = "";
-    script = `
-      const event = new DragEvent('drop', { preventDefault: function () {} });
-      fetch('/logo.svg')
-        .then(r => r.text())
-        .then(t => new Blob([t], {type: 'image/svg+xml'}))
-        .then(b => Object.defineProperty(event.constructor.prototype, 'dataTransfer', { value: { items: [ {getAsFile: function () { return b; } } ] } }))
-        .then(e => document.body.dispatchEvent(event));
+    html = `
+      <head>
+        <script>
+            const event = new DragEvent('drop', { preventDefault: function () {} });
+            fetch('/logo.svg')
+                .then(r => r.text())
+                .then(t => new Blob([t], {type: 'image/svg+xml'}))
+                .then(b => Object.defineProperty(event.constructor.prototype, 'dataTransfer', { value: { items: [ {getAsFile: function () { return b; } } ] } }))
+                .then(e => document.body.dispatchEvent(event));
+        </script>
+      </head>
     `;
   } else {
-    hash = await coreContract.methods.tokenIdToHash(tokenId).call();
-    let projectId = await coreContract.methods
-      .tokenIdToProjectId(tokenId)
-      .call();
-    script = await getScript(projectId);
+    const htmlResponse = await fetch(`${liveBaseUrl}${tokenId}`);
+    html = await htmlResponse.text();
   }
 
   res.send(`
         <html>
-            <head>
-                <title>${tokenId}</title>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
-                <script>
-                    let tokenData = {"hash":"${hash}"};
-                </script>
-                <script>
-                    ${script}
-                </script>
-                <style type="text/css">
-                    body {
-                        margin: 0;
-                        padding: 0;
-                    }
-                </style>
-            </head>
+            ${html.substring(6, html.length - 7)}
             <body>
-<div id='app'></div>
-<script>
-  const observer = new MutationObserver((mutationList, observer) => {
-  mutationList.forEach((mutation) => {
-    mutation.addedNodes.forEach(addedNode => {
-      if (addedNode.tagName == "svg") {
-        addedNode.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-        let svgData = addedNode.outerHTML;
-        let preface = '<?xml version="1.0" standalone="no"?>\\r\\n';
-        let svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
-        const event = new DragEvent('drop', { preventDefault: function () {} });
-        Object.defineProperty(event.constructor.prototype, 'dataTransfer', { value: { items: [ {getAsFile: function () { return svgBlob; } } ] } });
-        document.body.dispatchEvent(event);
-        addedNode.remove();
-      }
-    });
-  });
-});
-  observer.observe(document.body, {childList: true, attributes: false, subtree: false});
-</script>
-<script type="text/javascript" src="/saxi/plot.js"></script>
+            <div id='app'></div>
+            <script>
+              const observer = new MutationObserver((mutationList, observer) => {
+              mutationList.forEach((mutation) => {
+                mutation.addedNodes.forEach(addedNode => {
+                  if (addedNode.tagName === "svg") {
+                    addedNode.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                    let svgData = addedNode.outerHTML;
+                    let preface = '<?xml version="1.0" standalone="no"?>\\r\\n';
+                    let svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+                    const event = new DragEvent('drop', { preventDefault: function () {} });
+                    Object.defineProperty(event.constructor.prototype, 'dataTransfer', { value: { items: [ {getAsFile: function () { return svgBlob; } } ] } });
+                    document.body.dispatchEvent(event);
+                    addedNode.remove();
+                  }
+                });
+              });
+            });
+              observer.observe(document.body, {childList: true, attributes: false, subtree: false});
+            </script>
+            <script type="text/javascript" src="/saxi/plot.js"></script>
             </body>
         </html>
     `);
 }
-
-// <div id='app'></div>
-// <script>
-//   const observer = new MutationObserver((mutationList, observer) => {
-//   mutationList.forEach((mutation) => {
-//     mutation.addedNodes.forEach(addedNode => {
-//       if (addedNode.tagName == "svg") {
-//         addedNode.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-//         let svgData = addedNode.outerHTML;
-//         let preface = '<?xml version="1.0" standalone="no"?>\r\n';
-//         let svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
-//         const event = new DragEvent('drop', { preventDefault: function () {} });
-//         Object.defineProperty(event.constructor.prototype, 'dataTransfer', { value: { items: [ {getAsFile: function () { return svgBlob; } } ] } });
-//         document.body.dispatchEvent(event);
-//         addedNode.remove();
-//       }
-//     });
-//   });
-// });
-//   observer.observe(document.body, {childList: true, attributes: false, subtree: false});
-// </script>
-// <script type="text/javascript" src="/saxi/plot.js"></script>
