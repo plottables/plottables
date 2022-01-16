@@ -23,6 +23,11 @@ export default async function handler(
   } else {
     const htmlResponse = await fetch(`${liveBaseUrl}${tokenId}`);
     html = await htmlResponse.text();
+    const split = html.indexOf("<script>let tokenData = {");
+    html =
+      html.substring(0, split) +
+      '<script>let tokenData = {"plot":true,' +
+      html.substring(split + 25);
   }
 
   res.send(`
