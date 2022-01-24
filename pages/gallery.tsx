@@ -6,6 +6,7 @@ import styles from "@/styles/Gallery.module.css";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from 'next/router'
 
 interface GalleryProps {
   projects: any[];
