@@ -9,16 +9,22 @@ export default async function handler(
   let html: string;
   if (tokenId === "welcome") {
     html = `
-      <head>
-        <script>
-            const event = new DragEvent('drop', { preventDefault: function () {} });
-            fetch('/logo.svg')
-                .then(r => r.text())
-                .then(t => new Blob([t], {type: 'image/svg+xml'}))
-                .then(b => Object.defineProperty(event.constructor.prototype, 'dataTransfer', { value: { items: [ {getAsFile: function () { return b; } } ] } }))
-                .then(e => document.body.dispatchEvent(event));
-        </script>
-      </head>
+      <html>
+        <head>
+          <script>
+              const event = new DragEvent('drop', { preventDefault: function () {} });
+              fetch('/logo.svg')
+                  .then(r => r.text())
+                  .then(t => new Blob([t], {type: 'image/svg+xml'}))
+                  .then(b => Object.defineProperty(event.constructor.prototype, 'dataTransfer', { value: { items: [ {getAsFile: function () { return b; } } ] } }))
+                  .then(e => document.body.dispatchEvent(event));
+          </script>
+        </head>
+        <body>
+          <div id='app'></div>
+          <script type="text/javascript" src="/saxi/plot.js"></script>
+        </body>
+      </html>
     `;
   } else {
     const htmlResponse = await fetch(`${liveBaseUrl}${tokenId}`);
