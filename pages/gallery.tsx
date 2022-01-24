@@ -12,7 +12,8 @@ interface GalleryProps {
 }
 
 export default function Gallery({ projects }: GalleryProps) {
-  const [filter, setFilter] = useState("all");
+  const router = useRouter()
+  const [filter, setFilter] = useState(router.query.filter || "all");
   return (
     <Container>
       <div className={styles.selectorContainer}>
