@@ -110,7 +110,7 @@ export default function Project(project: ProjectProps) {
       <br />
       Price per token:{" "}
       {parseInt(project.projectTokenInfo.pricePerTokenInWei) /
-        1000000000000000000}
+        1000000000000000000} {project.projectTokenInfo.currency}
       <br />
       <br />
       License: {project.projectDetails.license}
