@@ -59,7 +59,9 @@ export default function Gallery({ projects }: GalleryProps) {
               <div className={styles.projectContainer}>
                 <div className={styles.projectDetails}>
                   <br />
-                  {p.projectDetails.description}
+                  <span style={{ whiteSpace: "pre-wrap" }}>
+                    {p.projectDetails.description}
+                  </span>
                   <br />
                   <br />
                   Total Minted: {p.projectTokenInfo.invocations} /{" "}
@@ -67,7 +69,9 @@ export default function Gallery({ projects }: GalleryProps) {
                   <br />
                   <br />
                   Price per token:{" "}
-                  {p.projectTokenInfo.pricePerTokenInWei / 1000000000000000000} {p.projectTokenInfo.currency}
+                  {p.projectTokenInfo.pricePerTokenInWei /
+                    1000000000000000000}{" "}
+                  {p.projectTokenInfo.currency}
                   <br />
                   <br />
                 </div>

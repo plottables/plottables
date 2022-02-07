@@ -101,7 +101,9 @@ export default function Project(project: ProjectProps) {
       </a>
       <br />
       <br />
-      {project.projectDetails.description}
+      <span style={{ whiteSpace: "pre-wrap" }}>
+        {project.projectDetails.description}
+      </span>
       <br />
       <br />
       Total Minted: {project.projectTokenInfo.invocations} /{" "}
@@ -110,7 +112,8 @@ export default function Project(project: ProjectProps) {
       <br />
       Price per token:{" "}
       {parseInt(project.projectTokenInfo.pricePerTokenInWei) /
-        1000000000000000000} {project.projectTokenInfo.currency}
+        1000000000000000000}{" "}
+      {project.projectTokenInfo.currency}
       <br />
       <br />
       License: {project.projectDetails.license}

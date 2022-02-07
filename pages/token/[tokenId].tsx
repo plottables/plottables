@@ -73,12 +73,12 @@ export default function Token({
 
           <div className={styles.viewOptions}>
             <a
-                href={
-                  "https://looksrare.org/collections/0xa319C382a702682129fcbF55d514E61a16f97f9c/" +
-                  tokenId
-                }
-                target="_blank"
-                rel="noreferrer"
+              href={
+                "https://looksrare.org/collections/0xa319C382a702682129fcbF55d514E61a16f97f9c/" +
+                tokenId
+              }
+              target="_blank"
+              rel="noreferrer"
             >
               View on LooksRare
             </a>
