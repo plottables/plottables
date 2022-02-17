@@ -14,6 +14,13 @@ export default function Plot(props: { owner: string; artistAddress: string }) {
   const { tokenId } = router.query;
   const walletAddress = useWalletContext();
   const [showState, setShowState] = useState(false);
+  const [userAgent, setUserAgent] = useState("");
+
+  useEffect(() => {
+    if (navigator) {
+      setUserAgent(navigator.userAgent);
+    }
+  }, []);
 
   useEffect(() => {
     if (
@@ -33,6 +40,21 @@ export default function Plot(props: { owner: string; artistAddress: string }) {
       await connectWallet();
     }
   };
+
+  if (!userAgent.match(/chrome|chromium|crios/i)) {
+    return (
+      <div style={{ width: "100vw", height: "100vh" }}>
+        <div
+          className={styles.overlay}
+          style={{
+            display: "block",
+          }}
+        >
+          <div>please open in chrome</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
