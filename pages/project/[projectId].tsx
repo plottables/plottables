@@ -1,6 +1,6 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import Container from "@/components/Container";
-import { imageBaseUrl } from "@/config/index";
+import { calendar, imageBaseUrl } from "@/config/index";
 import {
   projectDetails,
   projectScriptInfo,
@@ -32,6 +32,27 @@ export default function Project(project: ProjectProps) {
   const [tokens, setTokens] = useState<Array<string>>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [countConfirmations, setCountConfirmations] = useState(0);
+  const [releaseDate, setReleaseDate] = useState("TBD");
+
+  useEffect(() => {
+    if (
+      process.env.NEXT_PUBLIC_ETH_NETWORK == "main" &&
+      project.projectId in calendar
+    ) {
+      const date = new Date(
+        calendar[project.projectId as unknown as keyof typeof calendar]
+      );
+      setReleaseDate(
+        date.toLocaleString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          timeZoneName: "short",
+          hour: "numeric",
+        })
+      );
+    }
+  }, []);
 
   let scriptType;
   try {
@@ -104,6 +125,9 @@ export default function Project(project: ProjectProps) {
       <span style={{ whiteSpace: "pre-wrap" }}>
         {project.projectDetails.description}
       </span>
+      <br />
+      <br />
+      Release Date: {releaseDate}
       <br />
       <br />
       Total Minted: {project.projectTokenInfo.invocations} /{" "}

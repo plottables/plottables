@@ -21,4 +21,14 @@ export const liveBaseUrl =
     ? `https://generator.artblocks.io/${coreContractAddress}/`
     : `https://generator-staging.artblocks.io/${coreContractAddress}/`;
 
+export const calendar = {
+  0: "12/10/2021 2:00:00 PM EST",
+  1: "12/10/2021 2:00:00 PM EST",
+  2: "1/24/2022 12:00:00 PM EST",
+  3: "2/3/2022 1:00:00 PM EST",
+  4: "2/9/2022 3:00:00 PM EST",
+  5: "2/16/2022 2:00:00 PM EST",
+  6: "2/23/2022 12:00:00 PM EST",
+};
+
 export { coreAbi, minterAbi };

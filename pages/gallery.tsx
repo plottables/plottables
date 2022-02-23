@@ -1,5 +1,5 @@
 import Container from "@/components/Container";
-import { imageBaseUrl } from "@/config/index";
+import { calendar, imageBaseUrl } from "@/config/index";
 import { projectDetails, projectTokenInfo } from "@/lib/coreContract";
 import { makeLineBreak } from "@/lib/makeLineBreak";
 import styles from "@/styles/Gallery.module.css";
@@ -46,6 +46,22 @@ export default function Gallery({ projects }: GalleryProps) {
           }
         })
         .map((p) => {
+          let releaseDate = "TBD";
+          if (
+            process.env.NEXT_PUBLIC_ETH_NETWORK == "main" &&
+            p.projectId in calendar
+          ) {
+            const date = new Date(
+              calendar[p.projectId as unknown as keyof typeof calendar]
+            );
+            releaseDate = date.toLocaleString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              timeZoneName: "short",
+              hour: "numeric",
+            });
+          }
           let randomToken =
             1000000 * p.projectId +
             Math.floor(Math.random() * p.projectTokenInfo.invocations);
@@ -58,6 +74,9 @@ export default function Gallery({ projects }: GalleryProps) {
               </Link>
               <div className={styles.projectContainer}>
                 <div className={styles.projectDetails}>
+                  <br />
+                  Release Date: {releaseDate}
+                  <br />
                   <br />
                   <span style={{ whiteSpace: "pre-wrap" }}>
                     {p.projectDetails.description}
