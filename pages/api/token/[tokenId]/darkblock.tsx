@@ -11,7 +11,7 @@ export default async function handler(
   res.send(`
         <html>
             <head>
-                <style type="text/css">
+                <style>
                     body {
                         margin: 0;
                         padding: 0;
