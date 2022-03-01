@@ -40,14 +40,6 @@ export default function Token({
     setWidth(window.innerWidth);
   });
 
-  /*
-  let frameWidth = 500
-  if (typeof window !== undefined) 
-    if (window.innerWidth < 768) {
-      frameWidth = window.innerWidth - 80
-    }
-    */
-
   return (
     <Container>
       <div className={styles.viewOptions}>

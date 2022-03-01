@@ -178,21 +178,6 @@ export default function Project(project: ProjectProps) {
         </a>
       ) : null}
       <div>
-        {/* <br />
-        <ReactPaginate
-          previousLabel={"←"}
-          nextLabel={"→"}
-          breakLabel={"..."}
-          pageCount={
-            Number(project.projectTokenInfo.invocations) /
-            Number(process.env.NEXT_PUBLIC_PROJECT_GALLERY_PER_PAGE!)
-          }
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={3}
-          onPageChange={handlePageClick}
-          containerClassName={styles.pagination}
-          activeClassName={styles.active}
-        /> */}
         <br />
         <div className={styles.galleryContainer}>
           {tokens.map((t) => {
