@@ -93,7 +93,7 @@ a:visited {
 @media (max-width: 768px) {
   .header > #connectButton {
     position: absolute;
-    top: 45px;
+    top: 53px;
     right: 30px;
   }
 }
@@ -132,6 +132,8 @@ a:visited {
 @media (max-width: 480px) {
   .footer {
     margin-top: 25px;
+    font-size: 14px;
+    line-height: 16px;
   }
 
   .footer > .left > a {
@@ -139,7 +141,7 @@ a:visited {
   }
 
   .footer > .center > a {
-    display: block;    
+    /* display: block;     */
   }
 }
 

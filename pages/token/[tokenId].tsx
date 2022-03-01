@@ -1,3 +1,4 @@
+import React from "react"
 import Container from "@/components/Container";
 import { coreContractAddress, imageBaseUrl, liveBaseUrl } from "@/config/index";
 import {
@@ -33,6 +34,19 @@ export default function Token({
   } catch {
     scale = 1;
   }
+
+  const [width, setWidth] = React.useState(0);
+  React.useEffect(() => {
+    setWidth(window.innerWidth);
+  });
+
+  /*
+  let frameWidth = 500
+  if (typeof window !== undefined) 
+    if (window.innerWidth < 768) {
+      frameWidth = window.innerWidth - 80
+    }
+    */
 
   return (
     <Container>
@@ -125,8 +139,8 @@ export default function Token({
               className={styles.liveview}
               src={liveBaseUrl + tokenId}
               style={{
-                width: "500px",
-                height: "calc(" + scale + "*500px)",
+                width: `${width > 768 ? 500 : (width - 100)}px`,
+                height: "calc(" + scale + `*${width > 768 ? 500 : (width - 100)}px)`,
               }}
             />
           </div>
