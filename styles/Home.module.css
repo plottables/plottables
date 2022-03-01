@@ -1,3 +1,15 @@
+@media (max-width: 480px) {
+  .noMobile {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .noTablet {
+    display: none;
+  }
+}
+
 .home {
   text-align: center;
 }

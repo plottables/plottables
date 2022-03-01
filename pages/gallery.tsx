@@ -15,7 +15,10 @@ export default function Gallery({ projects }: GalleryProps) {
   const [filter, setFilter] = useState("all");
   return (
     <Container>
-      <div className={styles.selectorContainer}>
+      {makeLineBreak()}
+      <br/>
+      <br/>
+      <div className={styles.selectorContainer}>        
         <div
           className={filter === "all" ? styles.highlight : undefined}
           onClick={() => setFilter("all")}
@@ -65,6 +68,7 @@ export default function Gallery({ projects }: GalleryProps) {
           let randomToken =
             1000000 * p.projectId +
             Math.floor(Math.random() * p.projectTokenInfo.invocations);
+
           return (
             <div key={p.projectId}>
               <Link href={`/project/${p.projectId}`}>

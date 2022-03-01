@@ -19,7 +19,7 @@ export default function User({ address, organizedTokens }: UserProps) {
   return (
     <Container>
       {/* eslint-disable-next-line react/no-unescaped-entities */}
-      User {address}'s Collection
+      <span className={styles.userAddress}>User {address}'s Collection</span>
       <br />
       <br />
       {makeLineBreak()}
