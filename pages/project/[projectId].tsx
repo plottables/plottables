@@ -117,7 +117,7 @@ export default function Project(project: ProjectProps) {
       {project.projectDetails.projectName} by {project.projectDetails.artist}
       <br />
       <br />
-      <a href={project.projectDetails.website}>
+      <a href={project.projectDetails.website} className={styles.projectWebsite}>
         {project.projectDetails.website}
       </a>
       <br />
@@ -178,7 +178,7 @@ export default function Project(project: ProjectProps) {
         </a>
       ) : null}
       <div>
-        <br />
+        {/* <br />
         <ReactPaginate
           previousLabel={"←"}
           nextLabel={"→"}
@@ -192,7 +192,7 @@ export default function Project(project: ProjectProps) {
           onPageChange={handlePageClick}
           containerClassName={styles.pagination}
           activeClassName={styles.active}
-        />
+        /> */}
         <br />
         <div className={styles.galleryContainer}>
           {tokens.map((t) => {
@@ -218,6 +218,23 @@ export default function Project(project: ProjectProps) {
             );
           })}
         </div>
+
+        <ReactPaginate
+          previousLabel={"←"}
+          nextLabel={"→"}
+          breakLabel={"..."}
+          pageCount={
+            Number(project.projectTokenInfo.invocations) /
+            Number(process.env.NEXT_PUBLIC_PROJECT_GALLERY_PER_PAGE!)
+          }
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={styles.pagination}
+          activeClassName={styles.active}
+        />
+        <br />
+
       </div>
     </Container>
   );
