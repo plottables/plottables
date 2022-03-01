@@ -2,6 +2,7 @@
   background-image: url("/icons/spinner.gif");
   background-position: center;
   background-repeat: no-repeat;
+  border-radius: 3px;
 }
 
 .liveview {
@@ -10,11 +11,13 @@
   display: block;
   box-shadow: 5px 5px 10px grey;
   border: none;
+  border-radius: 3px;
 }
 
 .viewOptions {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 
 .viewOptions > a {
@@ -26,6 +29,19 @@
   display: flex;
   margin-left: 40px;
   margin-right: 40px;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 }
 
 .tokenInfo {
@@ -43,9 +59,50 @@
   margin-right: 20%;
 }
 
+@media (max-width: 1600px) {
+  .featuresContainer {
+    margin-right: 5%;
+    margin-left: 5%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .featuresContainer {
+    margin-right: 20%;
+    margin-left: 20%;
+  }
+}
+
+@media (max-width: 768px) {
+  .featuresContainer {
+    margin-right: 5%;
+    margin-left: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .featuresContainer {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .featuresContainer {
+    flex-direction: column;
+    margin-bottom: 45px;
+  }
+}
+
 .featuresContainer > .feature {
   flex: 2 0 24rem;
   text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .featuresContainer > .feature {
+    flex: 2 0 1rem;
+  }  
 }
 
 .highlight {

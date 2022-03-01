@@ -7,16 +7,16 @@ export default function Home() {
   return (
     <Container>
       <div className={styles.home}>
-        <br />
-        <br />
-        <br />
+        <br className={styles.noMobile} />
+        <br className={styles.noMobile} />
+        <br className={styles.noTablet} />
         <br />
         <div className={styles.logo}>
           <Logo />
         </div>
-        <br />
-        <br />
-        <br />
+        <br className={styles.noMobile} />
+        <br className={styles.noMobile} />
+        <br className={styles.noTablet} />
         <br />
         <span className={styles.highlight}>What is it?</span>
         <br />
