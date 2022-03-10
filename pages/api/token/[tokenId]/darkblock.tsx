@@ -20,7 +20,7 @@ export default async function handler(
             </head>
             <body>
                 <div style="padding: 50px; min-height: 500px; width:792px;" id="darkblock-widget-embed"></div>
-                <script id="darkblockwidget-script" src="https://d2etrwe6lfjo48.cloudfront.net/darkblock-widget.js" data-config="{'platform': 'Ethereum', 'tokenId': '${tokenId}', 'contractAddress': '0xa319C382a702682129fcbF55d514E61a16f97f9c'}"></script>
+                <script id="darkblockwidget-script" src="https://d2etrwe6lfjo48.cloudfront.net/darkblock-widget.js" data-config="{'platform': 'Ethereum', 'tokenId': '${tokenId}', 'contractAddress': '0xe39ee914ca7c1cc89451d990a8b3bab5415470b5'}"></script>
             </body>
         </html>
     `);
