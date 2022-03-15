@@ -6,13 +6,15 @@ import styles from "@/styles/Gallery.module.css";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from 'next/router'
 
 interface GalleryProps {
   projects: any[];
 }
 
 export default function Gallery({ projects }: GalleryProps) {
-  const [filter, setFilter] = useState("all");
+  const router = useRouter()
+  const [filter, setFilter] = useState(router.query.filter || "all");
   return (
     <Container>
       {makeLineBreak()}
