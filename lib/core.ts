@@ -1,10 +1,8 @@
-import { coreContractAddress } from "@/config/index";
+import { alchemyApiUrl, coreContractAddress } from "@/config/index";
 import { CORE__factory } from "@/types/ethers-contracts";
 import { ethers } from "ethers";
 
-const ALCHEMY_HOST = `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`;
-
-const provider = new ethers.providers.JsonRpcProvider(ALCHEMY_HOST);
+const provider = new ethers.providers.JsonRpcProvider(alchemyApiUrl);
 export const core = CORE__factory.connect(coreContractAddress, provider);
 
 export type ProjectDetails = {
