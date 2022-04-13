@@ -195,14 +195,9 @@ export default function Project(project: ProjectProps) {
                   <a>#{t}</a>
                 </Link>
                 <img
-                  src={`/api/image.png?token=${
+                  src={`https://res.cloudinary.com/art-blocks/image/fetch/f_auto,c_limit,h_500,q_auto/https://plottables-staging.s3.amazonaws.com/${
                     parseInt(t) + 1000000 * parseInt(project.projectId)
-                  }`}
-                  // src={
-                  //   imageBaseUrl +
-                  //   (parseInt(t) + 1000000 * parseInt(project.projectId)) +
-                  //   ".png"
-                  // }
+                  }.png`}
                   alt={"an image"}
                 />
               </div>

@@ -115,7 +115,7 @@ export default function Gallery({ seed }: { seed: string }) {
                       <a>#{randomToken - 1000000 * parseInt(p.projectId)}</a>
                     </Link>
                     <img
-                      src={`/api/image.png?token=${randomToken}`}
+                      src={`https://res.cloudinary.com/art-blocks/image/fetch/f_auto,c_limit,h_500,q_auto/https://plottables-staging.s3.amazonaws.com/${randomToken}.png`}
                       alt={"a random image"}
                     />
                   </div>
