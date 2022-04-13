@@ -117,7 +117,10 @@ export default function Project(project: ProjectProps) {
       {project.projectDetails.projectName} by {project.projectDetails.artist}
       <br />
       <br />
-      <a href={project.projectDetails.website} className={styles.projectWebsite}>
+      <a
+        href={project.projectDetails.website}
+        className={styles.projectWebsite}
+      >
         {project.projectDetails.website}
       </a>
       <br />
@@ -219,7 +222,6 @@ export default function Project(project: ProjectProps) {
           activeClassName={styles.active}
         />
         <br />
-
       </div>
     </Container>
   );

@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
 import { LineBreak } from "@/components/LineBreak";
-import { calendar, imageBaseUrl } from "@/config/index";
+import { calendar } from "@/config/index";
 import { GalleryResponse } from "@/pages/api/gallery";
 import styles from "@/styles/Gallery.module.css";
 import { GetServerSideProps } from "next";
@@ -115,7 +115,7 @@ export default function Gallery({ seed }: { seed: string }) {
                       <a>#{randomToken - 1000000 * parseInt(p.projectId)}</a>
                     </Link>
                     <img
-                      src={imageBaseUrl + randomToken + ".png"}
+                      src={`/api/images.png?token=${randomToken}`}
                       alt={"a random image"}
                     />
                   </div>
