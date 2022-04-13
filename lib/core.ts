@@ -27,6 +27,14 @@ export type ProjectTokenInfo = {
   currencyAddress: string;
 };
 
+export type ProjectScriptInfo = {
+  scriptJSON: string;
+  scriptCount: BigNumberString;
+  ipfsHash: string;
+  locked: boolean;
+  paused: boolean;
+};
+
 export const getProjectDetails = async (
   projectId: string
 ): Promise<ProjectDetails> => {
@@ -54,5 +62,18 @@ export const getProjectTokenInfo = async (
     additionalPayeePercentage: resp.additionalPayeePercentage.toString(),
     currency: resp.currency,
     currencyAddress: resp.currencyAddress,
+  };
+};
+
+export const getProjectScriptInfo = async (
+  projectId: string
+): Promise<ProjectScriptInfo> => {
+  const resp = await core.projectScriptInfo(projectId);
+  return {
+    scriptJSON: resp.scriptJSON,
+    scriptCount: resp.scriptCount.toString(),
+    ipfsHash: resp.ipfsHash,
+    locked: resp.locked,
+    paused: resp.paused,
   };
 };

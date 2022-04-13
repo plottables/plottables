@@ -1,31 +1,21 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import Container from "@/components/Container";
 import { calendar } from "@/config/index";
-import {
-  projectDetails,
-  projectScriptInfo,
-  projectTokenInfo,
-} from "@/lib/coreContract";
+import { fetcher } from "@/lib/fetcher";
 import { connectWallet, purchase, waitForConfirmation } from "@/lib/interact";
-import {
-  ProjectDetails,
-  ProjectScriptInfo,
-  ProjectTokenInfo,
-} from "@/lib/types";
+import { ProjectResponse } from "@/pages/api/project/[projectId]";
 import styles from "@/styles/Project.module.css";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Rand from "rand-seed";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import useSWR from "swr";
 
-interface ProjectProps {
-  projectId: string;
-  projectDetails: ProjectDetails;
-  projectTokenInfo: ProjectTokenInfo;
-  projectScriptInfo: ProjectScriptInfo;
-}
+export default function Project({ seed }: { seed: string }) {
+  const rand = new Rand(seed);
 
-export default function Project(project: ProjectProps) {
   const router = useRouter();
   const walletAddress = useWalletContext();
   const [offset, setOffset] = useState(0);
@@ -34,13 +24,20 @@ export default function Project(project: ProjectProps) {
   const [countConfirmations, setCountConfirmations] = useState(0);
   const [releaseDate, setReleaseDate] = useState("TBD");
 
+  const { data, error, isValidating } = useSWR<ProjectResponse>(
+    `/api/project/${router.query.projectId}`,
+    fetcher
+  );
+
   useEffect(() => {
+    if (!data?.project?.projectId) return;
+
     if (
       process.env.NEXT_PUBLIC_ETH_NETWORK == "main" &&
-      project.projectId in calendar
+      data.project.projectId in calendar
     ) {
       const date = new Date(
-        calendar[project.projectId as unknown as keyof typeof calendar]
+        calendar[data.project.projectId as unknown as keyof typeof calendar]
       );
       setReleaseDate(
         date.toLocaleString("en-US", {
@@ -52,30 +49,36 @@ export default function Project(project: ProjectProps) {
         })
       );
     }
-  }, []);
+  }, [data?.project]);
 
-  let scriptType;
-  try {
-    scriptType = JSON.parse(project.projectScriptInfo.scriptJSON).type;
-  } catch {
-    scriptType = "";
+  let scriptType = "";
+  if (data?.project?.projectScriptInfo?.scriptJSON) {
+    try {
+      scriptType = JSON.parse(
+        data?.project?.projectScriptInfo?.scriptJSON
+      ).type;
+    } catch {
+      console.error("unable to parse script json");
+    }
   }
 
   useEffect(() => {
+    if (!data?.project?.projectId) return;
+
     let tokens = [];
     for (
       let i = offset;
       i <
       Math.min(
         offset + Number(process.env.NEXT_PUBLIC_PROJECT_GALLERY_PER_PAGE!),
-        Number(project.projectTokenInfo.invocations)
+        Number(data?.project.projectTokenInfo.invocations)
       );
       i++
     ) {
       tokens.push(i.toString());
     }
     setTokens(tokens);
-  }, [offset, project.projectTokenInfo.invocations]);
+  }, [offset, data?.project]);
 
   const handlePageClick = (data: { selected: number }) => {
     setOffset(
@@ -86,11 +89,19 @@ export default function Project(project: ProjectProps) {
     );
   };
 
+  if (!data?.project) {
+    return (
+      <Container>
+        <div>Loading...</div>
+      </Container>
+    );
+  }
+
   const handlePurchaseClick = async () => {
     if (walletAddress.length === 0) {
       await connectWallet();
     }
-    const transaction = await purchase(project.projectId);
+    const transaction = await purchase(data?.project.projectId);
     if (transaction) {
       setIsProcessing(true);
       await waitForConfirmation(transaction, 1);
@@ -114,36 +125,37 @@ export default function Project(project: ProjectProps) {
         <div>processing... {countConfirmations} / 3</div>
       </div>
       <br />
-      {project.projectDetails.projectName} by {project.projectDetails.artist}
+      {data?.project.projectDetails.projectName} by{" "}
+      {data?.project.projectDetails.artist}
       <br />
       <br />
       <a
-        href={project.projectDetails.website}
+        href={data?.project.projectDetails.website}
         className={styles.projectWebsite}
       >
-        {project.projectDetails.website}
+        {data?.project.projectDetails.website}
       </a>
       <br />
       <br />
       <span style={{ whiteSpace: "pre-wrap" }}>
-        {project.projectDetails.description}
+        {data?.project.projectDetails.description}
       </span>
       <br />
       <br />
       Release Date: {releaseDate}
       <br />
       <br />
-      Total Minted: {project.projectTokenInfo.invocations} /{" "}
-      {project.projectTokenInfo.maxInvocations}
+      Total Minted: {data?.project.projectTokenInfo.invocations} /{" "}
+      {data?.project.projectTokenInfo.maxInvocations}
       <br />
       <br />
       Price per token:{" "}
-      {parseInt(project.projectTokenInfo.pricePerTokenInWei) /
+      {parseInt(data?.project.projectTokenInfo.pricePerTokenInWei) /
         1000000000000000000}{" "}
-      {project.projectTokenInfo.currency}
+      {data?.project.projectTokenInfo.currency}
       <br />
       <br />
-      License: {project.projectDetails.license}
+      License: {data?.project.projectDetails.license}
       <br />
       <br />
       Script: {scriptType}
@@ -156,23 +168,23 @@ export default function Project(project: ProjectProps) {
         >
           {walletAddress.length === 0
             ? "Connect Wallet to Purchase"
-            : project.projectTokenInfo.invocations ==
-              project.projectTokenInfo.maxInvocations
+            : data?.project.projectTokenInfo.invocations ==
+              data?.project.projectTokenInfo.maxInvocations
             ? "Sold Out"
-            : !project.projectScriptInfo.paused &&
-              project.projectTokenInfo.active
+            : !data?.project.projectScriptInfo.paused &&
+              data?.project.projectTokenInfo.active
             ? "Purchase"
             : "Purchases Paused"}
         </div>
       }
       <br />
       {walletAddress.toLowerCase() ===
-      project.projectTokenInfo.artistAddress.toLowerCase() ? (
+      data?.project.projectTokenInfo.artistAddress.toLowerCase() ? (
         <a
           href={
             process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
-              ? `https://artblocks.io/project/0xa319c382a702682129fcbf55d514e61a16f97f9c-${project.projectId}`
-              : `https://artist-staging.artblocks.io/project/0xd10e3dee203579fcee90ed7d0bdd8086f7e53beb-${project.projectId}`
+              ? `https://artblocks.io/project/0xa319c382a702682129fcbf55d514e61a16f97f9c-${data?.project.projectId}`
+              : `https://artist-staging.artblocks.io/project/0xd10e3dee203579fcee90ed7d0bdd8086f7e53beb-${data?.project.projectId}`
           }
           target="_blank"
           rel="noreferrer"
@@ -189,14 +201,14 @@ export default function Project(project: ProjectProps) {
                 <Link
                   href={
                     "/token/" +
-                    (parseInt(t) + 1000000 * parseInt(project.projectId))
+                    (parseInt(t) + 1000000 * parseInt(data?.project.projectId))
                   }
                 >
                   <a>#{t}</a>
                 </Link>
                 <img
                   src={`https://res.cloudinary.com/art-blocks/image/fetch/f_auto,c_limit,h_500,q_auto/https://plottables-staging.s3.amazonaws.com/${
-                    parseInt(t) + 1000000 * parseInt(project.projectId)
+                    parseInt(t) + 1000000 * parseInt(data?.project.projectId)
                   }.png`}
                   alt={"an image"}
                 />
@@ -210,7 +222,7 @@ export default function Project(project: ProjectProps) {
           nextLabel={"→"}
           breakLabel={"..."}
           pageCount={
-            Number(project.projectTokenInfo.invocations) /
+            Number(data?.project.projectTokenInfo.invocations) /
             Number(process.env.NEXT_PUBLIC_PROJECT_GALLERY_PER_PAGE!)
           }
           marginPagesDisplayed={2}
@@ -225,31 +237,11 @@ export default function Project(project: ProjectProps) {
   );
 }
 
-export const getServerSideProps: ({ params }: { params: any }) => Promise<
-  | { notFound: boolean }
-  | {
-      props: {
-        projectTokenInfo: string;
-        projectId: string;
-        projectDetails: string;
-        projectScriptInfo: string;
-      };
-    }
-> = async ({ params }) => {
-  const projectId = params?.projectId;
-
-  if (!projectId) {
+export const getServerSideProps: GetServerSideProps<{ seed: string }> =
+  async () => {
     return {
-      notFound: true,
+      props: {
+        seed: new Rand().next().toString(),
+      },
     };
-  }
-
-  return {
-    props: {
-      projectId: projectId,
-      projectDetails: await projectDetails(projectId),
-      projectTokenInfo: await projectTokenInfo(projectId),
-      projectScriptInfo: await projectScriptInfo(projectId),
-    },
   };
-};

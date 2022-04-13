@@ -1,6 +1,7 @@
 import Container from "@/components/Container";
 import { LineBreak } from "@/components/LineBreak";
 import { calendar } from "@/config/index";
+import { fetcher } from "@/lib/fetcher";
 import { GalleryResponse } from "@/pages/api/gallery";
 import styles from "@/styles/Gallery.module.css";
 import { GetServerSideProps } from "next";
@@ -8,8 +9,6 @@ import Link from "next/link";
 import Rand from "rand-seed";
 import { useState } from "react";
 import useSWR from "swr";
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function Gallery({ seed }: { seed: string }) {
   const rand = new Rand(seed);
