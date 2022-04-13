@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
 import { LineBreak } from "@/components/LineBreak";
-import { calendar } from "@/config/index";
+import { calendar, imageBaseUrl } from "@/config/index";
 import { fetcher } from "@/lib/fetcher";
 import { GalleryResponse } from "@/pages/api/gallery";
 import styles from "@/styles/Gallery.module.css";
@@ -114,7 +114,7 @@ export default function Gallery({ seed }: { seed: string }) {
                       <a>#{randomToken - 1000000 * parseInt(p.projectId)}</a>
                     </Link>
                     <img
-                      src={`https://res.cloudinary.com/art-blocks/image/fetch/f_auto,c_limit,h_500,q_auto/https://plottables-staging.s3.amazonaws.com/${randomToken}.png`}
+                      src={`https://res.cloudinary.com/art-blocks/image/fetch/f_auto,c_limit,h_500,q_auto/${imageBaseUrl}${randomToken}.png`}
                       alt={"a random image"}
                     />
                   </div>

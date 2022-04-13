@@ -1,6 +1,6 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import Container from "@/components/Container";
-import { calendar } from "@/config/index";
+import { calendar, imageBaseUrl } from "@/config/index";
 import { fetcher } from "@/lib/fetcher";
 import { connectWallet, purchase, waitForConfirmation } from "@/lib/interact";
 import { ProjectResponse } from "@/pages/api/project/[projectId]";
@@ -207,7 +207,7 @@ export default function Project({ seed }: { seed: string }) {
                   <a>#{t}</a>
                 </Link>
                 <img
-                  src={`https://res.cloudinary.com/art-blocks/image/fetch/f_auto,c_limit,h_500,q_auto/https://plottables-staging.s3.amazonaws.com/${
+                  src={`https://res.cloudinary.com/art-blocks/image/fetch/f_auto,c_limit,h_500,q_auto/${imageBaseUrl}${
                     parseInt(t) + 1000000 * parseInt(data?.project.projectId)
                   }.png`}
                   alt={"an image"}
