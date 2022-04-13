@@ -115,7 +115,7 @@ export default function Gallery({ seed }: { seed: string }) {
                       <a>#{randomToken - 1000000 * parseInt(p.projectId)}</a>
                     </Link>
                     <img
-                      src={`/api/images.png?token=${randomToken}`}
+                      src={`/api/image.png?token=${randomToken}`}
                       alt={"a random image"}
                     />
                   </div>

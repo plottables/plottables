@@ -1,6 +1,6 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import Container from "@/components/Container";
-import { calendar, imageBaseUrl } from "@/config/index";
+import { calendar } from "@/config/index";
 import {
   projectDetails,
   projectScriptInfo,
@@ -195,11 +195,14 @@ export default function Project(project: ProjectProps) {
                   <a>#{t}</a>
                 </Link>
                 <img
-                  src={
-                    imageBaseUrl +
-                    (parseInt(t) + 1000000 * parseInt(project.projectId)) +
-                    ".png"
-                  }
+                  src={`/api/image.png?token=${
+                    parseInt(t) + 1000000 * parseInt(project.projectId)
+                  }`}
+                  // src={
+                  //   imageBaseUrl +
+                  //   (parseInt(t) + 1000000 * parseInt(project.projectId)) +
+                  //   ".png"
+                  // }
                   alt={"an image"}
                 />
               </div>
