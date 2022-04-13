@@ -37,6 +37,7 @@ export default async (
     });
   }
 
+  // trying out caching
   res
     .setHeader("Cache-Control", "s-maxage=1, stale-while-revalidate=59")
     .status(200)
