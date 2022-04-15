@@ -5,7 +5,7 @@ import { TokenResponse } from "@/pages/api/token/[tokenId]";
 import styles from "@/styles/Token.module.css";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
 export default function Token() {
@@ -13,15 +13,15 @@ export default function Token() {
 
   const tokenId = router.query.tokenId as string;
 
-  const { data, error, isValidating } = useSWR<TokenResponse>(
+  const { data, error } = useSWR<TokenResponse>(
     `/api/token/${tokenId}`,
     fetcher
   );
 
-  const [width, setWidth] = React.useState(0);
-  React.useEffect(() => {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
     setWidth(window.innerWidth);
-  });
+  }, []);
 
   let scale = 1;
   try {
@@ -90,15 +90,13 @@ export default function Token() {
           <br />
           <div className={styles.viewOptions}>Features</div>
           <div className={`${styles.featuresContainer} ${styles.highlight}`}>
-            {data.features
-              ? Object.keys(data.features).map(function (key: string, index) {
-                  return (
-                    <div key={key} className={styles.feature}>
-                      {key}: {data.features[key as keyof typeof data.features]}
-                    </div>
-                  );
-                })
-              : null}
+            {Object.keys(data.features || {}).map((key: string) => {
+              return (
+                <div key={key} className={styles.feature}>
+                  {key}: {data.features[key]}
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className={styles.tokenLive}>

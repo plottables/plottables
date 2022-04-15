@@ -1,9 +1,9 @@
 import { alchemyApiUrl, coreContractAddress } from "@/config/index";
-import { CORE__factory } from "@/types/ethers-contracts";
+import { CoreAbi__factory } from "@/types/ethers-contracts";
 import { ethers } from "ethers";
 
 const provider = new ethers.providers.JsonRpcProvider(alchemyApiUrl);
-export const core = CORE__factory.connect(coreContractAddress, provider);
+export const core = CoreAbi__factory.connect(coreContractAddress, provider);
 
 export type ProjectDetails = {
   projectName: string;

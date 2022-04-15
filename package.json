@@ -12,7 +12,7 @@
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "generate-types": "typechain --target=web3-v1 'config/*.json' --always-generate-overloads",
-    "generate-types-v2": "typechain --target=ethers-v5 './config/CORE.json'  --show-stack-traces",
+    "generate-types-v2": "typechain --target=ethers-v5 './config/*.json' --show-stack-traces",
     "prettier": "prettier --write ."
   },
   "dependencies": {

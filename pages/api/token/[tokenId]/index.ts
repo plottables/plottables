@@ -14,7 +14,7 @@ export type TokenResponse = {
   projectId: string;
   projectDetails: ProjectDetails;
   projectScriptInfo: ProjectScriptInfo;
-  features: any[];
+  features: Record<string, string>;
 };
 
 export default async (
