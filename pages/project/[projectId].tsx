@@ -9,7 +9,7 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Rand from "rand-seed";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import useSWR from "swr";
 
@@ -89,15 +89,9 @@ export default function Project({ seed }: { seed: string }) {
     );
   };
 
-  if (!data?.project) {
-    return (
-      <Container>
-        <div>Loading...</div>
-      </Container>
-    );
-  }
-
   const handlePurchaseClick = async () => {
+    if (!data?.project?.projectId) return;
+
     if (walletAddress.length === 0) {
       await connectWallet();
     }
@@ -114,6 +108,14 @@ export default function Project({ seed }: { seed: string }) {
     }
   };
 
+  if (!data) {
+    return <Container>Loading...</Container>;
+  }
+
+  if (error) {
+    return <Container>Error!</Container>;
+  }
+
   return (
     <Container>
       <div
@@ -125,37 +127,37 @@ export default function Project({ seed }: { seed: string }) {
         <div>processing... {countConfirmations} / 3</div>
       </div>
       <br />
-      {data?.project.projectDetails.projectName} by{" "}
-      {data?.project.projectDetails.artist}
+      {data.project.projectDetails.projectName} by{" "}
+      {data.project.projectDetails.artist}
       <br />
       <br />
       <a
-        href={data?.project.projectDetails.website}
+        href={data.project.projectDetails.website}
         className={styles.projectWebsite}
       >
-        {data?.project.projectDetails.website}
+        {data.project.projectDetails.website}
       </a>
       <br />
       <br />
       <span style={{ whiteSpace: "pre-wrap" }}>
-        {data?.project.projectDetails.description}
+        {data.project.projectDetails.description}
       </span>
       <br />
       <br />
       Release Date: {releaseDate}
       <br />
       <br />
-      Total Minted: {data?.project.projectTokenInfo.invocations} /{" "}
-      {data?.project.projectTokenInfo.maxInvocations}
+      Total Minted: {data.project.projectTokenInfo.invocations} /{" "}
+      {data.project.projectTokenInfo.maxInvocations}
       <br />
       <br />
       Price per token:{" "}
-      {parseInt(data?.project.projectTokenInfo.pricePerTokenInWei) /
+      {parseInt(data.project.projectTokenInfo.pricePerTokenInWei) /
         1000000000000000000}{" "}
-      {data?.project.projectTokenInfo.currency}
+      {data.project.projectTokenInfo.currency}
       <br />
       <br />
-      License: {data?.project.projectDetails.license}
+      License: {data.project.projectDetails.license}
       <br />
       <br />
       Script: {scriptType}
@@ -168,23 +170,23 @@ export default function Project({ seed }: { seed: string }) {
         >
           {walletAddress.length === 0
             ? "Connect Wallet to Purchase"
-            : data?.project.projectTokenInfo.invocations ==
-              data?.project.projectTokenInfo.maxInvocations
+            : data.project.projectTokenInfo.invocations ==
+              data.project.projectTokenInfo.maxInvocations
             ? "Sold Out"
-            : !data?.project.projectScriptInfo.paused &&
-              data?.project.projectTokenInfo.active
+            : !data.project.projectScriptInfo.paused &&
+              data.project.projectTokenInfo.active
             ? "Purchase"
             : "Purchases Paused"}
         </div>
       }
       <br />
       {walletAddress.toLowerCase() ===
-      data?.project.projectTokenInfo.artistAddress.toLowerCase() ? (
+      data.project.projectTokenInfo.artistAddress.toLowerCase() ? (
         <a
           href={
             process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
-              ? `https://artblocks.io/project/0xa319c382a702682129fcbf55d514e61a16f97f9c-${data?.project.projectId}`
-              : `https://artist-staging.artblocks.io/project/0xd10e3dee203579fcee90ed7d0bdd8086f7e53beb-${data?.project.projectId}`
+              ? `https://artblocks.io/project/0xa319c382a702682129fcbf55d514e61a16f97f9c-${data.project.projectId}`
+              : `https://artist-staging.artblocks.io/project/0xd10e3dee203579fcee90ed7d0bdd8086f7e53beb-${data.project.projectId}`
           }
           target="_blank"
           rel="noreferrer"
@@ -201,14 +203,14 @@ export default function Project({ seed }: { seed: string }) {
                 <Link
                   href={
                     "/token/" +
-                    (parseInt(t) + 1000000 * parseInt(data?.project.projectId))
+                    (parseInt(t) + 1000000 * parseInt(data.project.projectId))
                   }
                 >
                   <a>#{t}</a>
                 </Link>
                 <img
                   src={`https://res.cloudinary.com/art-blocks/image/fetch/f_auto,c_limit,h_500,q_auto/${imageBaseUrl}${
-                    parseInt(t) + 1000000 * parseInt(data?.project.projectId)
+                    parseInt(t) + 1000000 * parseInt(data.project.projectId)
                   }.png`}
                   alt={"an image"}
                 />
@@ -222,7 +224,7 @@ export default function Project({ seed }: { seed: string }) {
           nextLabel={"→"}
           breakLabel={"..."}
           pageCount={
-            Number(data?.project.projectTokenInfo.invocations) /
+            Number(data.project.projectTokenInfo.invocations) /
             Number(process.env.NEXT_PUBLIC_PROJECT_GALLERY_PER_PAGE!)
           }
           marginPagesDisplayed={2}
