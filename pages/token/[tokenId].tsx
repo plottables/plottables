@@ -93,7 +93,7 @@ export default function Token() {
             {Object.keys(data.features || {}).map((key: string) => {
               return (
                 <div key={key} className={styles.feature}>
-                  {key}: {data.features[key]}
+                  {key}: {data.features[key].toString()}
                 </div>
               );
             })}
