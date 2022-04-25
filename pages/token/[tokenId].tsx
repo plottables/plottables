@@ -1,62 +1,60 @@
-import React from "react"
 import Container from "@/components/Container";
-import { coreContractAddress, imageBaseUrl, liveBaseUrl } from "@/config/index";
-import {
-  ownerOf,
-  projectDetails,
-  projectScriptInfo,
-  tokenIdToProjectId,
-} from "@/lib/coreContract";
-import { ProjectDetails, ProjectScriptInfo } from "@/lib/types";
+import { imageBaseUrl, liveBaseUrl } from "@/config/index";
+import { fetcher } from "@/lib/fetcher";
+import { TokenResponse } from "@/pages/api/token/[tokenId]";
 import styles from "@/styles/Token.module.css";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 
-interface TokenProps {
-  tokenId: string;
-  projectId: string;
-  ownerOf: string;
-  projectDetails: ProjectDetails;
-  projectScriptInfo: ProjectScriptInfo;
-  features: Object;
-}
+export default function Token() {
+  const router = useRouter();
 
-export default function Token({
-  tokenId,
-  projectId,
-  ownerOf,
-  projectDetails,
-  projectScriptInfo,
-  features,
-}: TokenProps) {
-  let scale;
+  const tokenId = router.query.tokenId as string;
+
+  const { data, error } = useSWR<TokenResponse>(
+    `/api/token/${tokenId}`,
+    fetcher
+  );
+
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, []);
+
+  let scale = 1;
   try {
-    scale = 1 / JSON.parse(projectScriptInfo.scriptJSON).aspectRatio;
-  } catch {
-    scale = 1;
+    if (data?.projectScriptInfo?.scriptJSON) {
+      scale = 1 / JSON.parse(data?.projectScriptInfo?.scriptJSON).aspectRatio;
+    }
+  } catch {}
+
+  if (!data) {
+    return <Container>Loading...</Container>;
   }
 
-  const [width, setWidth] = React.useState(0);
-  React.useEffect(() => {
-    setWidth(window.innerWidth);
-  });
+  if (error) {
+    return <Container>Error!</Container>;
+  }
 
   return (
     <Container>
       <div className={styles.viewOptions}>
-        <Link href={`/project/${projectId}`}>
-          <a>Visit the {projectDetails.projectName} Gallery</a>
+        <Link href={`/project/${data?.projectId}`}>
+          <a>Visit the {data?.projectDetails.projectName} Gallery</a>
         </Link>
       </div>
       <br />
       <div className={styles.viewOptions}>
-        {projectDetails.projectName} #
-        {parseInt(tokenId) - 1000000 * parseInt(projectId)} by{" "}
-        {projectDetails.artist}
+        {data.projectDetails.projectName} #
+        {parseInt(tokenId) - 1000000 * parseInt(data.projectId)} by{" "}
+        {data.projectDetails.artist}
       </div>
       <div className={styles.viewOptions}>
         Owned by{" "}
-        <Link href={`/user/${ownerOf}`}>
-          <a>{ownerOf.toLowerCase().substring(0, 8)}</a>
+        <Link href={`/user/${data.ownerOf}`}>
+          <a>{data.ownerOf.toLowerCase().substring(0, 8)}</a>
         </Link>
       </div>
       <br />
@@ -92,15 +90,13 @@ export default function Token({
           <br />
           <div className={styles.viewOptions}>Features</div>
           <div className={`${styles.featuresContainer} ${styles.highlight}`}>
-            {features
-              ? Object.keys(features).map(function (key: string, index) {
-                  return (
-                    <div key={key} className={styles.feature}>
-                      {key}: {features[key as keyof typeof features]}
-                    </div>
-                  );
-                })
-              : null}
+            {Object.keys(data.features || {}).map((key: string) => {
+              return (
+                <div key={key} className={styles.feature}>
+                  {key}: {data.features[key]}
+                </div>
+              );
+            })}
           </div>
         </div>
         <div className={styles.tokenLive}>
@@ -131,8 +127,9 @@ export default function Token({
               className={styles.liveview}
               src={liveBaseUrl + tokenId}
               style={{
-                width: `${width > 768 ? 500 : (width - 100)}px`,
-                height: "calc(" + scale + `*${width > 768 ? 500 : (width - 100)}px)`,
+                width: `${width > 768 ? 500 : width - 100}px`,
+                height:
+                  "calc(" + scale + `*${width > 768 ? 500 : width - 100}px)`,
               }}
             />
           </div>
@@ -141,44 +138,3 @@ export default function Token({
     </Container>
   );
 }
-
-export const getServerSideProps: ({ params }: { params: any }) => Promise<
-  | { notFound: boolean }
-  | {
-      props: {
-        tokenId: string;
-        ownerOf: string;
-        projectId: string;
-        projectDetails: string;
-        projectScriptInfo: string;
-      };
-    }
-> = async ({ params }) => {
-  const tokenId = params?.tokenId;
-
-  if (!tokenId) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const res = await fetch(
-    process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
-      ? `https://token.artblocks.io/${coreContractAddress.toLowerCase()}/${tokenId}`
-      : `https://token.staging.artblocks.io/${coreContractAddress.toLowerCase()}/${tokenId}`
-  );
-  const data = await res.json();
-
-  const projectId = await tokenIdToProjectId(tokenId);
-
-  return {
-    props: {
-      tokenId: tokenId,
-      projectId: projectId,
-      ownerOf: await ownerOf(tokenId),
-      projectDetails: await projectDetails(projectId),
-      projectScriptInfo: await projectScriptInfo(projectId),
-      features: data.features ? data.features : null,
-    },
-  };
-};

@@ -21,6 +21,11 @@ export const liveBaseUrl =
     ? `https://generator.artblocks.io/${coreContractAddress}/`
     : `https://generator-staging.artblocks.io/${coreContractAddress}/`;
 
+export const alchemyApiUrl =
+  process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
+    ? `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`
+    : `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`;
+
 export const calendar = {
   0: "12/10/2021 2:00:00 PM EST",
   1: "12/10/2021 2:00:00 PM EST",
