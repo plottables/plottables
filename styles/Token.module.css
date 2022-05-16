@@ -1,5 +1,5 @@
 .liveviewContainer {
-  background-image: url("public/icons/spinner.gif");
+  background-image: url("/public/icons/spinner.gif");
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 3px;
