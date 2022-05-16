@@ -4,9 +4,9 @@
 export type { CORE } from "./CORE";
 export type { CoreAbi } from "./CoreAbi";
 export type { Erc20Abi } from "./Erc20Abi";
-export type { MinterAbi } from "./MinterAbi";
 export * as factories from "./factories";
-export { CORE__factory } from "./factories/CORE__factory";
 export { CoreAbi__factory } from "./factories/CoreAbi__factory";
+export { CORE__factory } from "./factories/CORE__factory";
 export { Erc20Abi__factory } from "./factories/Erc20Abi__factory";
 export { MinterAbi__factory } from "./factories/MinterAbi__factory";
+export type { MinterAbi } from "./MinterAbi";

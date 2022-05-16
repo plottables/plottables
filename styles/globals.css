@@ -125,7 +125,7 @@ a:visited {
 
 @media (max-width: 768px) {
   .footer > .left > a {
-    display: block;    
+    display: block;
   }
 }
 
@@ -137,7 +137,7 @@ a:visited {
   }
 
   .footer > .left > a {
-    display: block;    
+    display: block;
   }
 
   .footer > .center > a {
