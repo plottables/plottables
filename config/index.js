@@ -39,6 +39,7 @@ export const calendar = {
   9: "3/30/2022 3:00:00 PM EDT",
   10: "5/5/2022 5:00:00 PM EDT",
   11: "5/25/2022 2:00:00 PM EDT",
+  12: "6/10/2022 4:00:00 PM EDT",
 };
 
 export const darkblockProjects = [8];
