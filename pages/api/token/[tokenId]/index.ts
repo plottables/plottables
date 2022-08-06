@@ -1,4 +1,4 @@
-import { coreContractAddress } from "@/config/index";
+import {tokenBaseUrl} from "@/config/index";
 import {
   getProjectDetails,
   getProjectScriptInfo,
@@ -29,11 +29,7 @@ export default async (
     };
   }
 
-  const resp = await fetch(
-    process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
-      ? `https://token.artblocks.io/${coreContractAddress.toLowerCase()}/${tokenId}`
-      : `https://token.staging.artblocks.io/${coreContractAddress.toLowerCase()}/${tokenId}`
-  );
+  const resp = await fetch(`${tokenBaseUrl}${tokenId}`);
   const data = await resp.json();
 
   const projectId = await tokenIdToProjectId(tokenId);

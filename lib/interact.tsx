@@ -1,14 +1,12 @@
 import coreAbi from "@/config/coreAbi.json";
 import erc20Abi from "@/config/erc20Abi.json";
-import { coreContractAddress, minterContractAddress } from "@/config/index";
+import {coreContractAddress, minterContractAddress, networkChainId} from "@/config/index";
 import minterAbi from "@/config/minterAbi.json";
 import { ethers } from "ethers";
 
 declare const window: any;
 
-const networkName =
-  process.env.NEXT_PUBLIC_ETH_NETWORK == "main" ? "homestead" : "ropsten";
-const chainId = process.env.NEXT_PUBLIC_ETH_NETWORK == "main" ? "0x1" : "0x3";
+const chainId = networkChainId;
 
 export const connectWallet = async () => {
   try {

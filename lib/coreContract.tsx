@@ -3,15 +3,9 @@ import { CoreAbi } from "@/types/web3-v1-contracts/coreAbi";
 import { createAlchemyWeb3 } from "@alch/alchemy-web3";
 import { AbiItem } from "web3-utils";
 import { coreContractAddress } from "../config";
+import {alchemyApiUrl} from "@/config/index";
 
-const web3 =
-  process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
-    ? createAlchemyWeb3(
-        `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`
-      )
-    : createAlchemyWeb3(
-        `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`
-      );
+const web3 = createAlchemyWeb3(alchemyApiUrl);
 
 const coreContract = new web3.eth.Contract(
   coreAbi as AbiItem[],

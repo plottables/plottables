@@ -1,6 +1,6 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import Container from "@/components/Container";
-import { calendar, imageBaseUrl } from "@/config/index";
+import {calendar, editProjectBaseUrl, imageBaseUrl} from "@/config/index";
 import { fetcher } from "@/lib/fetcher";
 import { connectWallet, purchase, waitForConfirmation } from "@/lib/interact";
 import { ProjectResponse } from "@/pages/api/project/[projectId]";
@@ -183,10 +183,7 @@ export default function Project({ seed }: { seed: string }) {
       {walletAddress.toLowerCase() ===
       data.project.projectTokenInfo.artistAddress.toLowerCase() ? (
         <a
-          href={
-            process.env.NEXT_PUBLIC_ETH_NETWORK === "main"
-              ? `https://artblocks.io/project/0xa319c382a702682129fcbf55d514e61a16f97f9c-${data.project.projectId}`
-              : `https://artist-staging.artblocks.io/project/0xd10e3dee203579fcee90ed7d0bdd8086f7e53beb-${data.project.projectId}`
+          href={`${editProjectBaseUrl}${data.project.projectId}`
           }
           target="_blank"
           rel="noreferrer"
