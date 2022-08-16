@@ -8,7 +8,7 @@ const chainConfig = {
     imageBaseUrl: "https://plottables-mainnet.s3.amazonaws.com/",
     liveBaseUrl: "https://generator.artblocks.io/",
     tokenBaseUrl: "https://token.artblocks.io/",
-    editProjectBaseUrl: "https://artblocks.io/project/",
+    editProjectBaseUrl: "https://artblocks.io/engine/fullyonchain/projects/",
     alchemyApiUrl: "https://eth-mainnet.g.alchemy.com/v2/",
     networkChainId: "0x1"
   },
@@ -18,7 +18,7 @@ const chainConfig = {
     imageBaseUrl: "https://plottables-staging.s3.amazonaws.com/",
     liveBaseUrl: "https://generator-staging.artblocks.io",
     tokenBaseUrl: "https://token.staging.artblocks.io/",
-    editProjectBaseUrl: "https://artist-staging.artblocks.io/project/",
+    editProjectBaseUrl: "https://artist-staging.artblocks.io/engine/fullyonchain/projects/",
     alchemyApiUrl: "https://eth-ropsten.alchemyapi.io/v2/",
     networkChainId: "0x3"
   },
@@ -28,7 +28,7 @@ const chainConfig = {
     imageBaseUrl: "https://plottables-goerli.s3.amazonaws.com/",
     liveBaseUrl: "https://generator-goerli.artblocks.io/",
     tokenBaseUrl: "https://token.staging.artblocks.io/",
-    editProjectBaseUrl: "https://artist-staging.artblocks.io/project/",
+    editProjectBaseUrl: "https://artist-staging.artblocks.io/engine/fullyonchain/projects/",
     alchemyApiUrl: "https://eth-goerli.g.alchemy.com/v2/",
     networkChainId: "0x5"
   }
@@ -44,7 +44,7 @@ export const liveBaseUrl = `${chainConfig[process.env.NEXT_PUBLIC_ETH_NETWORK].l
 
 export const tokenBaseUrl = `${chainConfig[process.env.NEXT_PUBLIC_ETH_NETWORK].tokenBaseUrl}${coreContractAddress.toLowerCase()}/`;
 
-export const editProjectBaseUrl = `${chainConfig[process.env.NEXT_PUBLIC_ETH_NETWORK].editProjectBaseUrl}${coreContractAddress.toLowerCase()}-`;
+export const editProjectBaseUrl = `${chainConfig[process.env.NEXT_PUBLIC_ETH_NETWORK].editProjectBaseUrl}${coreContractAddress.toLowerCase()}/`;
 
 export const alchemyApiUrl = `${chainConfig[process.env.NEXT_PUBLIC_ETH_NETWORK].alchemyApiUrl}${process.env.ALCHEMY_API_KEY}`;
 
