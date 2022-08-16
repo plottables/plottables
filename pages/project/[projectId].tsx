@@ -12,6 +12,8 @@ import Rand from "rand-seed";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import useSWR from "swr";
+// @ts-ignore
+import { WinterCheckout } from '@usewinter/checkout';
 
 export default function Project({ seed }: { seed: string }) {
   const rand = new Rand(seed);
@@ -23,6 +25,8 @@ export default function Project({ seed }: { seed: string }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [countConfirmations, setCountConfirmations] = useState(0);
   const [releaseDate, setReleaseDate] = useState("TBD");
+    const [showWinter, setShowWinter] = useState(false);
+    const toggleWinter = async () => { setShowWinter(true) };
 
   const { data, error, isValidating } = useSWR<ProjectResponse>(
     `/api/project/${router.query.projectId}`,
@@ -118,6 +122,17 @@ export default function Project({ seed }: { seed: string }) {
 
   return (
     <Container>
+
+        <WinterCheckout
+            projectId={6868}
+            production={false}
+            showModal={showWinter}
+            // Extra mint params are params besides 'address, amount, proof'
+            // The key needs to exactly match the name of the param provided to Winter
+            // The value will be passed in as the param
+            extraMintParams={{projectId: data?.project?.projectId}}
+        />
+
       <div
         className={styles.overlay}
         style={{
@@ -179,6 +194,17 @@ export default function Project({ seed }: { seed: string }) {
             : "Purchases Paused"}
         </div>
       }
+        <br />
+        {(data.project.projectTokenInfo.invocations < data.project.projectTokenInfo.maxInvocations && !data.project.projectScriptInfo.paused &&
+            data.project.projectTokenInfo.active && process.env.NEXT_PUBLIC_ETH_NETWORK == "goerli") ? (
+            <div
+                className={`${styles.purchaseButton} ${styles.highlight}`}
+                onClick={toggleWinter}
+            >
+                Purchase With Card
+            </div>
+        ) : ""
+        }
       <br />
       {walletAddress.toLowerCase() ===
       data.project.projectTokenInfo.artistAddress.toLowerCase() ? (
