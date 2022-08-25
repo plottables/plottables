@@ -131,6 +131,7 @@ export default function Project({ seed }: { seed: string }) {
             // The key needs to exactly match the name of the param provided to Winter
             // The value will be passed in as the param
             extraMintParams={{projectId: data?.project?.projectId}}
+            testnet="goerli"
         />
 
       <div

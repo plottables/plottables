@@ -22,7 +22,7 @@
     "@svgr/webpack": "^5.5.0",
     "@typechain/ethers-v5": "^10.0.0",
     "@typechain/web3-v1": "^3.1.0",
-    "@usewinter/checkout": "^0.1.14",
+    "@usewinter/checkout": "^0.1.17",
     "chrome-aws-lambda": "^v8.0.0",
     "core-js": "^3.24.1",
     "ethers": "^5.6.3",
