@@ -196,15 +196,13 @@ export default function Project({ seed }: { seed: string }) {
         </div>
       }
         <br />
-        {(data.project.projectTokenInfo.invocations < data.project.projectTokenInfo.maxInvocations && !data.project.projectScriptInfo.paused &&
-            data.project.projectTokenInfo.active && process.env.NEXT_PUBLIC_ETH_NETWORK == "goerli") ? (
+        {
             <div
                 className={`${styles.purchaseButton} ${styles.highlight}`}
                 onClick={toggleWinter}
             >
-                Purchase With Card
+                {parseInt(data.project.projectTokenInfo.invocations) < parseInt(data.project.projectTokenInfo.maxInvocations) && !data.project.projectScriptInfo.paused && data.project.projectTokenInfo.active && process.env.NEXT_PUBLIC_ETH_NETWORK == "goerli" ? "Purchase With Card" : ""}
             </div>
-        ) : ""
         }
       <br />
       {walletAddress.toLowerCase() ===
