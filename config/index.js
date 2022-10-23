@@ -26,9 +26,19 @@ const chainConfig = {
     coreContractAddress: "0x9B0c67496Be8c6422fED0372be7a87707e3a6F09",
     minterContractAddress: "0x068C519D00A60CCD1830fabfe6eC428F2FDb4146",
     imageBaseUrl: "https://plottables-goerli.s3.amazonaws.com/",
-    liveBaseUrl: "https://generator-goerli.artblocks.io/",
+    liveBaseUrl: "https://generator-staging-goerli.artblocks.io/",
     tokenBaseUrl: "https://token.staging.artblocks.io/",
     editProjectBaseUrl: "https://artist-staging.artblocks.io/engine/fullyonchain/projects/",
+    alchemyApiUrl: "https://eth-goerli.g.alchemy.com/v2/",
+    networkChainId: "0x5"
+  },
+  goerliFlex: {
+    coreContractAddress: "0x48742D38a0809135EFd643c1150BfC13768C3907",
+    minterContractAddress: "0x1DEC9E52f1320F7Deb29cBCd7B7d67f3dF785142",
+    imageBaseUrl: "https://plottables-goerli.s3.amazonaws.com/",
+    liveBaseUrl: "https://generator-staging-goerli.artblocks.io/",
+    tokenBaseUrl: "https://token.staging.artblocks.io/",
+    editProjectBaseUrl: "https://artist-staging.artblocks.io/engine/flex/projects/",
     alchemyApiUrl: "https://eth-goerli.g.alchemy.com/v2/",
     networkChainId: "0x5"
   }
@@ -65,7 +75,5 @@ export const calendar = {
   11: "5/25/2022 2:00:00 PM EDT",
   12: "6/10/2022 4:00:00 PM EDT",
 };
-
-export const darkblockProjects = [8];
 
 export { coreAbi, minterAbi };
