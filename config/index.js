@@ -35,7 +35,7 @@ const chainConfig = {
   goerliFlex: {
     coreContractAddress: "0x48742D38a0809135EFd643c1150BfC13768C3907",
     minterContractAddress: "0x1DEC9E52f1320F7Deb29cBCd7B7d67f3dF785142",
-    imageBaseUrl: "https://plottables-goerli.s3.amazonaws.com/",
+    imageBaseUrl: "https://plottables-flex-goerli.s3.amazonaws.com/",
     liveBaseUrl: "https://generator-staging-goerli.artblocks.io/",
     tokenBaseUrl: "https://token.staging.artblocks.io/",
     editProjectBaseUrl: "https://artist-staging.artblocks.io/engine/flex/projects/",
