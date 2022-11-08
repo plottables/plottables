@@ -41,6 +41,16 @@ const chainConfig = {
     editProjectBaseUrl: "https://artist-staging.artblocks.io/engine/flex/projects/",
     alchemyApiUrl: "https://eth-goerli.g.alchemy.com/v2/",
     networkChainId: "0x5"
+  },
+  mainFlex: {
+    coreContractAddress: "0x18dE6097cE5B5B2724C9Cae6Ac519917f3F178c0",
+    minterContractAddress: "0xE6E728361b7C824Cba64cc1e5323EfB7a5Bb65DA",
+    imageBaseUrl: "https://plottables-flex.s3.amazonaws.com/",
+    liveBaseUrl: "https://generator.artblocks.io/",
+    tokenBaseUrl: "https://token.artblocks.io/",
+    editProjectBaseUrl: "https://artblocks.io/engine/flex/projects/",
+    alchemyApiUrl: "https://eth-mainnet.g.alchemy.com/v2/",
+    networkChainId: "0x1"
   }
 }
 
