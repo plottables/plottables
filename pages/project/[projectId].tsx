@@ -124,7 +124,7 @@ export default function Project({ seed }: { seed: string }) {
     <Container>
 
         <WinterCheckout
-            projectId={6868}
+            projectId={8110}
             production={false}
             showModal={showWinter}
             // Extra mint params are params besides 'address, amount, proof'
@@ -201,7 +201,7 @@ export default function Project({ seed }: { seed: string }) {
                 className={`${styles.purchaseButton} ${styles.highlight}`}
                 onClick={toggleWinter}
             >
-                {parseInt(data.project.projectTokenInfo.invocations) < parseInt(data.project.projectTokenInfo.maxInvocations) && !data.project.projectScriptInfo.paused && data.project.projectTokenInfo.active && process.env.NEXT_PUBLIC_ETH_NETWORK == "goerli" ? "Purchase With Card" : ""}
+                {parseInt(data.project.projectTokenInfo.invocations) < parseInt(data.project.projectTokenInfo.maxInvocations) && !data.project.projectScriptInfo.paused && data.project.projectTokenInfo.active && (process.env.NEXT_PUBLIC_ETH_NETWORK == "goerli" || process.env.NEXT_PUBLIC_ETH_NETWORK == "goerliFlex") ? "Purchase With Card" : ""}
             </div>
         }
       <br />
