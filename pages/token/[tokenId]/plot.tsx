@@ -13,7 +13,7 @@ export default function Plot(props: { owner: string; artistAddress: string }) {
   const router = useRouter();
   const { tokenId } = router.query;
   const walletAddress = useWalletContext();
-  const [showState, setShowState] = useState(false);
+  const [showState, setShowState] = useState(true);
   const [userAgent, setUserAgent] = useState("");
 
   useEffect(() => {
@@ -56,7 +56,18 @@ export default function Plot(props: { owner: string; artistAddress: string }) {
     );
   }
 
-  return (
+  return process.env.NEXT_PUBLIC_ETH_NETWORK === "mainFlex" ? <div style={{ width: "100vw", height: "100vh" }}>
+          <div style={{ width: "100%", height: "100%" }}>
+              <iframe
+                  src={`/api/token/${tokenId}/plot`}
+                  style={{
+                      height: "100%",
+                      width: "100%",
+                      border: 0,
+                  }}
+              />
+          </div>
+      </div> :
     <div style={{ width: "100vw", height: "100vh" }}>
       <div
         className={styles.overlay}
@@ -80,7 +91,7 @@ export default function Plot(props: { owner: string; artistAddress: string }) {
         />
       </div>
     </div>
-  );
+  ;
 }
 
 export const getServerSideProps: (context: any) => Promise<{ props: any }> =
