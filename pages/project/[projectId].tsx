@@ -1,6 +1,6 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import Container from "@/components/Container";
-import {calendar, editProjectBaseUrl, imageBaseUrl} from "@/config/index";
+import {calendar, editProjectBaseUrl, flexCalendar, imageBaseUrl} from "@/config/index";
 import { fetcher } from "@/lib/fetcher";
 import { connectWallet, purchase, waitForConfirmation } from "@/lib/interact";
 import { ProjectResponse } from "@/pages/api/project/[projectId]";
@@ -37,11 +37,11 @@ export default function Project({ seed }: { seed: string }) {
     if (!data?.project?.projectId) return;
 
     if (
-      process.env.NEXT_PUBLIC_ETH_NETWORK == "main" &&
+        (process.env.NEXT_PUBLIC_ETH_NETWORK == "main" || process.env.NEXT_PUBLIC_ETH_NETWORK == "flexMain") &&
       data.project.projectId in calendar
     ) {
       const date = new Date(
-        calendar[data.project.projectId as unknown as keyof typeof calendar]
+          process.env.NEXT_PUBLIC_ETH_NETWORK === "main" ? calendar[data.project.projectId as unknown as keyof typeof calendar] : flexCalendar[data.project.projectId as unknown as keyof typeof flexCalendar]
       );
       setReleaseDate(
         date.toLocaleString("en-US", {
@@ -125,13 +125,15 @@ export default function Project({ seed }: { seed: string }) {
 
         <WinterCheckout
             projectId={8110}
-            production={false}
+            production={process.env.NEXT_PUBLIC_ETH_NETWORK === "main" || process.env.NEXT_PUBLIC_ETH_NETWORK === "mainFlex"}
             showModal={showWinter}
+            onClose={() => setShowWinter(false)}
             // Extra mint params are params besides 'address, amount, proof'
             // The key needs to exactly match the name of the param provided to Winter
             // The value will be passed in as the param
             extraMintParams={{projectId: data?.project?.projectId}}
-            testnet="goerli"
+            // priceFunctionParams={{projectId: data?.project?.projectId}}
+            // testnet="goerli"
         />
 
       <div
@@ -201,7 +203,7 @@ export default function Project({ seed }: { seed: string }) {
                 className={`${styles.purchaseButton} ${styles.highlight}`}
                 onClick={toggleWinter}
             >
-                {parseInt(data.project.projectTokenInfo.invocations) < parseInt(data.project.projectTokenInfo.maxInvocations) && !data.project.projectScriptInfo.paused && data.project.projectTokenInfo.active && (process.env.NEXT_PUBLIC_ETH_NETWORK == "goerli" || process.env.NEXT_PUBLIC_ETH_NETWORK == "goerliFlex") ? "Purchase With Card" : ""}
+                {parseInt(data.project.projectTokenInfo.invocations) < parseInt(data.project.projectTokenInfo.maxInvocations) /*&& !data.project.projectScriptInfo.paused && data.project.projectTokenInfo.active */&& (process.env.NEXT_PUBLIC_ETH_NETWORK == "goerli" || process.env.NEXT_PUBLIC_ETH_NETWORK == "goerliFlex" || process.env.NEXT_PUBLIC_ETH_NETWORK == "mainFlex") ? "Purchase With Card" : ""}
             </div>
         }
       <br />

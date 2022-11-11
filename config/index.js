@@ -70,6 +70,10 @@ export const alchemyApiUrl = `${chainConfig[process.env.NEXT_PUBLIC_ETH_NETWORK]
 
 export const networkChainId = chainConfig[process.env.NEXT_PUBLIC_ETH_NETWORK].networkChainId;
 
+export const flexCalendar = {
+  0: "11/11/2022 2:00:00 PM CST",
+};
+
 export const calendar = {
   0: "12/10/2021 2:00:00 PM EST",
   1: "12/10/2021 2:00:00 PM EST",
