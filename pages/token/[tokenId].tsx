@@ -1,5 +1,5 @@
 import Container from "@/components/Container";
-import { imageBaseUrl, liveBaseUrl } from "@/config/index";
+import {coreContractAddress, imageBaseUrl, liveBaseUrl} from "@/config/index";
 import { fetcher } from "@/lib/fetcher";
 import { TokenResponse } from "@/pages/api/token/[tokenId]";
 import styles from "@/styles/Token.module.css";
@@ -65,7 +65,7 @@ export default function Token() {
           <div className={styles.viewOptions}>
             <a
               href={
-                "https://opensea.io/assets/0xa319c382a702682129fcbf55d514e61a16f97f9c/" +
+                "https://opensea.io/assets/" + coreContractAddress + "/" +
                 tokenId
               }
               target="_blank"
@@ -78,7 +78,7 @@ export default function Token() {
           <div className={styles.viewOptions}>
             <a
               href={
-                "https://looksrare.org/collections/0xa319C382a702682129fcbF55d514E61a16f97f9c/" +
+                "https://looksrare.org/collections/" + coreContractAddress + "/" +
                 tokenId
               }
               target="_blank"
