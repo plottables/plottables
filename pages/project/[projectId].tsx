@@ -233,7 +233,7 @@ export default function Project({ seed }: { seed: string }) {
                   <a>#{t}</a>
                 </Link>
                 <img
-                  src={`https://res.cloudinary.com/art-blocks/image/fetch/f_auto,c_limit,h_500,q_auto/${imageBaseUrl}${
+                  src={`${imageBaseUrl}${
                     parseInt(t) + 1000000 * parseInt(data.project.projectId)
                   }.png`}
                   alt={"an image"}
