@@ -1,9 +1,9 @@
 import {tokenBaseUrl} from "@/config/index";
 import {
-  getProjectDetails,
-  getProjectScriptInfo,
-  ProjectDetails,
-  ProjectScriptInfo,
+    getProjectDetails,
+    getProjectScriptInfo, getProjectTokenInfo,
+    ProjectDetails,
+    ProjectScriptInfo, ProjectTokenInfo,
 } from "@/lib/core";
 import { ownerOf, tokenIdToProjectId } from "@/lib/coreContract";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -12,6 +12,7 @@ export type TokenResponse = {
   tokenId: string;
   ownerOf: string;
   projectId: string;
+  projectTokenInfo: ProjectTokenInfo;
   projectDetails: ProjectDetails;
   projectScriptInfo: ProjectScriptInfo;
   features: Record<string, string>;
@@ -40,6 +41,7 @@ export default async (
     .json({
       tokenId: tokenId,
       projectId: projectId,
+      projectTokenInfo: await getProjectTokenInfo(projectId),
       ownerOf: await ownerOf(tokenId),
       projectDetails: await getProjectDetails(projectId),
       projectScriptInfo: await getProjectScriptInfo(projectId),

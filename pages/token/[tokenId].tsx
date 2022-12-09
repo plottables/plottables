@@ -7,9 +7,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
+import {useWalletContext} from "@/components/common/WalletProvider";
 
 export default function Token() {
   const router = useRouter();
+
+  const walletAddress = useWalletContext();
 
   const tokenId = router.query.tokenId as string;
 
@@ -121,6 +124,10 @@ export default function Token() {
             <a href={liveBaseUrl + tokenId} target="_blank" rel="noreferrer">
               live
             </a>
+            {walletAddress.toLowerCase() ===
+                data.projectTokenInfo.artistAddress.toLowerCase() ? <a href={`https://media.plottables.io/api/signArtist?url=${encodeURI(imageBaseUrl + tokenId + ".png")}`} target="_blank" rel="noreferrer">
+              sign
+            </a> : null}
           </div>
           <div className={styles.liveviewContainer}>
             <iframe
