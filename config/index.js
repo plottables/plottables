@@ -89,7 +89,8 @@ export const calendar = {
   11: "5/25/2022 2:00:00 PM EDT",
   12: "6/10/2022 4:00:00 PM EDT",
   13: "12/10/2022 2:00:00 PM EST",
-  14: "12/7/2022 2:00:00 PM EST"
+  14: "12/7/2022 2:00:00 PM EST",
+  15: "1/30/2023 3:00:00 PM EST",
 };
 
 export { coreAbi, minterAbi };
