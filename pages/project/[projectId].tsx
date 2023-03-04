@@ -14,6 +14,7 @@ import ReactPaginate from "react-paginate";
 import useSWR from "swr";
 // @ts-ignore
 import { WinterCheckout } from '@usewinter/checkout';
+import ReactMarkdown from "react-markdown";
 
 export default function Project({ seed }: { seed: string }) {
   const rand = new Rand(seed);
@@ -157,8 +158,8 @@ export default function Project({ seed }: { seed: string }) {
       </a>
       <br />
       <br />
-      <span style={{ whiteSpace: "pre-wrap" }}>
-        {data.project.projectDetails.description}
+      <span>
+        <ReactMarkdown>{data.project.projectDetails.description}</ReactMarkdown>
       </span>
       <br />
       <br />
