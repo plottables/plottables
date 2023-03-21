@@ -94,6 +94,7 @@ export const calendar = {
   16: "2/22/2023 12:00:00 PM EST",
   //17:
   18: "3/16/2023 2:00:00 PM EDT",
+  19: "3/23/2023 1:00:00 PM EDT",
 };
 
 export { coreAbi, minterAbi };
