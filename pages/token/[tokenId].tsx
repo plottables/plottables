@@ -68,7 +68,7 @@ export default function Token() {
           <div className={styles.viewOptions}>
             <a
               href={
-                "https://opensea.io/assets/" + coreContractAddress + "/" +
+                "https://opensea.io/assets/ethereum/" + coreContractAddress + "/" +
                 tokenId
               }
               target="_blank"
