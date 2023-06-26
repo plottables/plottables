@@ -1,5 +1,5 @@
 import Container from "@/components/Container";
-import {coreContractAddress, imageBaseUrl, liveBaseUrl} from "@/config/index";
+import {artfora_config, coreContractAddress, imageBaseUrl, liveBaseUrl} from "@/config/index";
 import { fetcher } from "@/lib/fetcher";
 import { TokenResponse } from "@/pages/api/token/[tokenId]";
 import styles from "@/styles/Token.module.css";
@@ -64,7 +64,28 @@ export default function Token() {
       <div className={styles.container}>
         <div className={styles.tokenInfo}>
           <br />
-          <br />
+          {
+            Object.keys(artfora_config.projects).includes(data.projectId) && (
+
+              <div className={`${styles.featuresContainer} ${styles.highlightOrange}`}>
+                <div className={`${styles.feature}`}>
+                  <a
+                    href={`${artfora_config.token_base_url}/${coreContractAddress.toLowerCase()}/${data.tokenId}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Purchase Plot on Artfora
+                  </a>
+                </div>
+              </div>
+            )
+          }
+          {
+            Object.keys(artfora_config.projects).includes(data.projectId) && (
+              <br/>
+            )
+          }
+
           <div className={styles.viewOptions}>
             <a
               href={

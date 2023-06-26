@@ -1,6 +1,13 @@
 import { useWalletContext } from "@/components/common/WalletProvider";
 import Container from "@/components/Container";
-import {calendar, editProjectBaseUrl, flexCalendar, imageBaseUrl} from "@/config/index";
+import {
+  artfora_config,
+  calendar,
+  coreContractAddress,
+  editProjectBaseUrl,
+  flexCalendar,
+  imageBaseUrl
+} from "@/config/index";
 import { fetcher } from "@/lib/fetcher";
 import { connectWallet, purchase, waitForConfirmation } from "@/lib/interact";
 import { ProjectResponse } from "@/pages/api/project/[projectId]";
@@ -198,7 +205,21 @@ export default function Project({ seed }: { seed: string }) {
             : "Purchases Paused"}
         </div>
       }
-        <br />
+      <br />
+      <br />
+      {
+        Object.keys(artfora_config.projects).includes(data.project.projectId) && (
+          <div className={`${styles.purchaseButton} ${styles.highlightOrange}`}>
+            <a
+              href={`${artfora_config.collection_base_url}/${artfora_config.projects[data.project.projectId as unknown as keyof typeof artfora_config.projects]}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              View Collection on Artfora
+            </a>
+          </div>
+        )
+      }
         {
             <div
                 className={`${styles.purchaseButton} ${styles.highlight}`}

@@ -100,4 +100,13 @@ export const calendar = {
   22: "6/27/2023 3:00:00 PM EDT",
 };
 
+
+export const artfora_config = {
+  collection_base_url: "https://www.artfora.com/collections",
+  token_base_url: "https://www.artfora.com/assets",
+  projects: {
+    "22": "stroomlijn"
+  }
+}
+
 export { coreAbi, minterAbi };
